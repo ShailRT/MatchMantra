@@ -11,7 +11,11 @@ export default function App() {
     <View className="flex-1 items-center justify-center bg-white">
       <Text className="text-lg font-pregular">MatchMantra!</Text>
       <Link href="/sign-in">
-        <Text>Go To</Text>
+        <Text>Sign In</Text>
+      </Link>
+
+      <Link href="/feed">
+        <Text>Home</Text>
       </Link>
 
       <StatusBar style="auto" />
