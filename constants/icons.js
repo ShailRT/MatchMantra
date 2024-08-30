@@ -13,7 +13,8 @@ import PersonIcon from "../assets/icons/person.png";
 import PhoneIcon from "../assets/icons/phone.png";
 import ShieldIcon from "../assets/icons/shield.png";
 import StarIcon from "../assets/icons/star.png";
-import CancelIcon from "../assets/icons/close.png";
+import CancelIcon from "../assets/icons/cancel.png";
+import SearchIcon from "../assets/icons/search.png";
 
 export {
   AppleIcon,
@@ -32,4 +33,5 @@ export {
   MessageIcon,
   SvgMessageIcon,
   CancelIcon,
+  SearchIcon,
 };

@@ -7,7 +7,6 @@ import {
   HeartIcon,
   StarIcon,
   MessageIcon,
-  svgMessageIcon,
 } from "../../constants/icons";
 
 const TabIcon = ({ icon, color, name, focused }) => {
@@ -36,6 +35,7 @@ const TabsLayout = () => {
             borderTopWidth: 1,
             borderTopColor: "#1a1a1a",
             height: 84,
+            paddingBottom: 20,
           },
         }}
       >

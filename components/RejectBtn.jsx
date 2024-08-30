@@ -4,8 +4,8 @@ import { CancelIcon } from "../constants/icons";
 
 const RejectBtn = () => {
   return (
-    <View className="bg-white fixed bottom-36 left-4 w-16 h-16 items-center justify-center rounded-full shadow-xl">
-      <Image source={CancelIcon} resizeMode="contain" className="w-10 h-10" />
+    <View className="bg-white fixed bottom-32 left-4 w-16 h-16 items-center justify-center rounded-full shadow-sm shadow-black-100">
+      <Image source={CancelIcon} resizeMode="contain" className="w-8 h-8" />
     </View>
   );
 };
