@@ -1,25 +1,20 @@
 import React from "react";
 import { Stack } from "expo-router";
 
-const AuthLayout = () => {
+const tempLayout = () => {
   return (
     <>
       <Stack>
         <Stack.Screen
-          name="sign-in"
+          name="index"
           options={{
             headerShown: false,
           }}
         />
-          <Stack.Screen
-          name="sign-up"
-          options={{
-            headerShown: false,
-          }}
-        />
+
       </Stack>
     </>
   );
 };
 
-export default AuthLayout;
+export default tempLayout;

@@ -7,15 +7,17 @@ import { colors } from "../../constants/colors";
 import { SafeAreaView } from "react-native-safe-area-context";
 import Spacer from "../../components/Spacer";
 import Type from "../../components/Type";
-import { links } from "../../constants/links";
 import Btn from "../../components/Btn";
-import { StatusBar } from "expo-status-bar";
 
 const SignIn = () => {
   const [isSigningIn, setIsSigningIn] = useState(false);
 
   const handleSignIn = () => {
     setIsSigningIn((prev) => !prev);
+  };
+
+  const handleCreateAccount = () => {
+    router.push("/sign-up");
   };
 
   const handleSignInWithPhoneNumber = () => {
@@ -40,7 +42,7 @@ const SignIn = () => {
         </View>
         <Spacer size={20} />
         {!isSigningIn && (
-          <Btn backgroundColor="primaryDark">
+          <Btn onPress={handleCreateAccount} backgroundColor="primaryDark">
             <Type variant="bodyBold" color="white">
               Create account
             </Type>
