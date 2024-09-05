@@ -58,7 +58,7 @@ const RootLayout = () => {
     return null;
   }
 
-
+  console.log(user);
   return (
       <UserContext.Provider value={{ user, setUser }}>
         { user?.token ? (

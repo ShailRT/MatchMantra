@@ -6,7 +6,7 @@ const tempLayout = () => {
     <>
       <Stack>
         <Stack.Screen
-          name="index"
+          name="home"
           options={{
             headerShown: false,
           }}

@@ -87,7 +87,11 @@ const Signup = () => {
             // values.password_confirmation="123123123";
 
             const token = await signup(values);
-            setUser({ token })
+            if(token){
+                setUser({ token })
+                router.push('home')
+            }
+            // return error
             // console.log('token :>> ', token);
         } catch(error) {
             console.log('error :>> ', error);
