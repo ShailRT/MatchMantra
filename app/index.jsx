@@ -7,7 +7,7 @@ export default function App() {
   const { user } = useContext(UserContext);
 
   if (user?.token) {
-    return <Redirect href="(temp)/" />
+    return <Redirect href="feed" />
   }
 
   return (

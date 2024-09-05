@@ -63,7 +63,7 @@ const RootLayout = () => {
       <UserContext.Provider value={{ user, setUser }}>
         { user?.token ? (
             <Stack>
-               <Stack.Screen name="(temp)" options={{ headerShown: false }} />
+               <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             </Stack>
 
         ): (

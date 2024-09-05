@@ -81,18 +81,12 @@ const Signup = () => {
 
             values.dob='2000-03-16';
 
-            // values.name="hellyeah";
-            // values.email="test123@test.com";
-            // values.password="123123123";
-            // values.password_confirmation="123123123";
-
             const token = await signup(values);
             if(token){
                 setUser({ token })
-                router.push('home')
+                router.push('feed')
             }
-            // return error
-            // console.log('token :>> ', token);
+           
         } catch(error) {
             console.log('error :>> ', error);
         }
