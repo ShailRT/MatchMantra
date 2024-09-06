@@ -32,7 +32,7 @@ const feed = () => {
         contentContainerStyle={{
           alignItems: "center",
         }}
-        showsHorizontalScrollIndicator="false"
+        // showsHorizontalScrollIndicator="false"
         data={prefrenceList}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
