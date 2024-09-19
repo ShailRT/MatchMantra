@@ -1,28 +1,28 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React, { useContext } from "react";
-import { UserContext } from "../_layout";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { setToken } from "../../store/userReducer";
 
 const star = () => {
-  const {setUser} = useContext(UserContext)
-
-  const Logout=async()=>{
-    try{
-        setUser({});
-        AsyncStorage.clear();
-        router.replace("/");
-    }catch(error){
-        console.log(error);
+  const dispatch = useDispatch();
+  const Logout = async () => {
+    try {
+      AsyncStorage.clear();
+      dispatch(setToken(""));
+      router.replace("/");
+    } catch (error) {
+      console.log(error);
     }
-  }
+  };
   return (
     <View className="flex-1 items-center justify-center bg-white">
-    <Text className="text-lg font-pregular">Feed Page </Text>
-    <TouchableOpacity onPress={Logout}>
-      <Text >Logout</Text>
-    </TouchableOpacity>
-  </View>
+      <Text className="text-lg font-pregular">Feed Page </Text>
+      <TouchableOpacity onPress={Logout}>
+        <Text>Logout</Text>
+      </TouchableOpacity>
+    </View>
   );
 };
 

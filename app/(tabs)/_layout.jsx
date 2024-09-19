@@ -1,5 +1,5 @@
 import { View, Text, Image } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Stack, Tabs } from "expo-router";
 import {
   HingeIcon,
@@ -8,8 +8,24 @@ import {
   StarIcon,
   MessageIcon,
 } from "../../constants/icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { setToken } from "../../store/userReducer";
 
 const TabIcon = ({ icon, color, name, focused }) => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    (async () => {
+      const token = await AsyncStorage.getItem("auth_token");
+      dispatch(setToken(token));
+    })();
+  }, []);
+  // useEffect(() => {
+  //   if (user?.token) {
+  //     addTokenToAxios(user?.token);
+  //   }
+  // }, [user]);
+
   return (
     <View className="items-center justify-center`">
       <Image

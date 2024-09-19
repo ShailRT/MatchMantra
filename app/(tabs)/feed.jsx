@@ -13,8 +13,10 @@ import RejectBtn from "../../components/RejectBtn";
 import PreferenceBar from "../../components/PreferenceBar";
 import { useState } from "react";
 import PromptCard from "../../components/PromptCard";
+import { useSelector } from "react-redux";
 
 const feed = () => {
+  const token = useSelector((state) => state.user.token);
   const prefrenceList = [
     { id: 1, text: "", icon: SearchIcon },
     { id: 2, text: "Compatible" },
@@ -80,7 +82,9 @@ const feed = () => {
           <View className="px-6">
             <View className="justify-between items-start flex-row mb-3">
               <View>
-                <Text className="font-psemibold text-3xl">Courtney</Text>
+                <Text className="font-psemibold text-3xl">
+                  Courtney {token}
+                </Text>
               </View>
               <View className="flex-row">
                 <View className="mt-1.5">
