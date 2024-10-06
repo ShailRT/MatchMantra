@@ -44,11 +44,12 @@ export const signup = async (values) => {
     }
 }
 
-export const getProfile = async () => {
+export const getMatchingProfile = async (token) => {
     try {
         const response = await request({
-            url: '/user/profile',
+            url: '/dating/profiles',
             method: 'get',
+            headers:  {Authorization: `Bearer ${token}` }
         });
 
         if (response) {
@@ -59,19 +60,31 @@ export const getProfile = async () => {
     }
 }
 
-export const updateProfile = async (data) => {
+export const likeProfile = async (data,token) => {
     try {
         const response = await request({
-            url: '/user/profile',
-            method: 'patch',
+            url: '/like',
+            method: 'post',
             data,
+            headers:  {Authorization: `Bearer ${token}` }
         });
 
-        if (response) {
-            const profile = await getProfile()
-            return profile;
-        }
     } catch (e) {
-        console.log('e profile :>> ', e);
+        console.log('e like profile :>> ', e);
+    }
+}
+
+
+export const skipProfile = async (data,token) => {
+    try {
+        const response = await request({
+            url: '/skip',
+            method: 'post',
+            data,
+            headers:  {Authorization: `Bearer ${token}` }
+        });
+
+    } catch (e) {
+        console.log('e skip profile :>> ', e);
     }
 }

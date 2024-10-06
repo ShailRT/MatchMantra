@@ -11,13 +11,81 @@ import { ChevronRightIcon, StarIcon, SearchIcon } from "../../constants/icons";
 import ImageCard from "../../components/ImageCard";
 import RejectBtn from "../../components/RejectBtn";
 import PreferenceBar from "../../components/PreferenceBar";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import PromptCard from "../../components/PromptCard";
 import { UserContext } from "./../_layout";
 import NeedSignIn from "../../components/NeedSignIn";
+import { getMatchingProfile, likeProfile, skipProfile } from "../../utils/backendCalls";
+import LikeBtn from "../../components/LikeBtn";
+
 
 const feed = () => {
   const { user } = useContext(UserContext);
+  const [profile,setProfile]= useState({});
+  const [profilePictures,setProfilePictures]= useState([]);
+
+  async function fetchProfile() {
+    try{
+        const profile= await getMatchingProfile(user.token);
+        console.log("profile returned: "+ profile);
+        if(profile){
+          setProfile(profile);
+        }
+        
+    }catch(error){
+      console.log("error while getting profile: ", error);
+    }
+  }
+
+  useEffect(()=>{
+    if(user?.token){
+      console.log("token kya h?"+user?.token);
+     fetchProfile();
+    }
+
+  },[])
+
+  
+  useEffect(()=>{
+    if(profile?.profile_pictures){
+      setProfilePictures(JSON.parse(profile.profile_pictures));
+    }else{
+      setProfilePictures(null);
+    }
+    
+  },[profile]);
+  
+  
+  const handleReject=async()=>{
+    console.log("tapped reject");
+    try{
+      const data={
+        "user_id" : profile?.id
+      }
+      console.log("data: "+ data);
+      skipProfile(data,user.token);
+      fetchProfile();
+    }catch(error){
+      console.log("Error while calling skip api "+ error);
+    }
+  
+  }
+
+  const handleLike=async()=>{
+    console.log("tapped like");
+    try{
+      const data={
+        "user_id" : profile?.id
+      }
+      console.log("data: "+ data);
+      likeProfile(data,user.token);
+      fetchProfile();
+    }catch(error){
+      console.log("Error while calling skip api "+ error);
+    }
+  
+  }
+
 
   const prefrenceList = [
     { id: 1, text: "", icon: SearchIcon },
@@ -55,27 +123,12 @@ const feed = () => {
 
           <FlatList
             className="mb-7"
-            data={[
-              {
-                id: 1,
-                image:
-                  "https://m.media-amazon.com/images/I/61KpZVl3bfL._AC_UF1000,1000_QL80_.jpg",
-              },
-              {
-                id: 2,
-                image:
-                  "https://i.pinimg.com/736x/73/3b/5d/733b5dbf63c4031666f395c52c5a4633.jpg",
-                prompt: {
-                  title: "I'm looking for",
-                  message: "Shailesh Rawat",
-                },
-              },
-              {
-                id: 3,
-                image:
-                  "https://miro.medium.com/v2/resize:fit:640/1*3YDzpCrL_6qO1wv0Gq4akw.jpeg",
-              },
-            ]}
+
+            data={profilePictures?.map((imageUrl,index)=>({
+              id:index+1,
+              image: "http://www.shaadimantraa.com/storage/profile_pictures/"+imageUrl
+            }))}
+
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => {
               return item.prompt ? (
@@ -88,7 +141,7 @@ const feed = () => {
               <View className="px-6">
                 <View className="justify-between items-start flex-row mb-3">
                   <View>
-                    <Text className="font-psemibold text-3xl">Courtney</Text>
+                    <Text className="font-psemibold text-3xl">{profile?.name}</Text>
                   </View>
                   <View className="flex-row">
                     <View className="mt-1.5">
@@ -110,7 +163,18 @@ const feed = () => {
               </View>
             )}
           />
-          <RejectBtn />
+          
+          <TouchableOpacity onPress={handleLike}>
+
+          <LikeBtn />
+          </TouchableOpacity>
+          
+          <TouchableOpacity onPress={handleReject}>
+
+            <RejectBtn />
+          </TouchableOpacity>
+
+         
         </>
       )}
     </SafeAreaView>

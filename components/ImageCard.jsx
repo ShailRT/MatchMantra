@@ -11,7 +11,7 @@ const ImageCard = ({ image }) => {
               className="font-psemibold text-sm align-middle"
               numberOfLines={1}
             >
-              Take me back to
+              
             </Text>
           </View>
         </View>

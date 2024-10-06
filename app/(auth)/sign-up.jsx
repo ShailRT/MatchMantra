@@ -79,8 +79,10 @@ const Signup = () => {
                 return;
             }
 
+            values.email= values.email.toLowerCase();
             values.dob='2000-03-16';
 
+            console.log(values);
             const token = await signup(values);
             if(token){
                 setUser({ token })

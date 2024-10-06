@@ -7,6 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Button from "../../components/Button";
 import { login } from "../../utils/backendCalls";
 import { UserContext } from "../_layout";
+import { addTokenToAxios } from "../../utils/request";
 
 const styles = StyleSheet.create({
   container: {
@@ -50,6 +51,7 @@ const SignIn = () => {
       return;
     }
 
+    values.email= values.email.toLowerCase();
     try {
       const token = await login(values);
       if (token) {
