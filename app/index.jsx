@@ -18,6 +18,9 @@ export default function App() {
         <Text>Home</Text>
       </Link>
 
+      <Link href="StackNavigator">
+        <Text>Sign Up</Text>
+      </Link>
       <StatusBar style="auto" />
     </View>
   );
