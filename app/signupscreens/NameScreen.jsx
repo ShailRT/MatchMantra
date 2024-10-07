@@ -105,7 +105,7 @@ const NameScreen = ({ navigation }) => {
             placeholderTextColor={"#BEBEBE"}
           />
           <Text style={{ fontSize: 15, color: "gray", fontWeight: "500" }}>
-            Last match is optional.
+            Last name is optional.
           </Text>
         </View>
         <TouchableOpacity
