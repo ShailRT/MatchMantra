@@ -18,7 +18,12 @@ export default function App() {
         <Text>Home</Text>
       </Link>
 
-      <Link href="StackNavigator">
+      <Link
+        href="StackNavigator"
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
         <Text>Sign Up</Text>
       </Link>
       <StatusBar style="auto" />

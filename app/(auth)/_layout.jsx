@@ -13,6 +13,14 @@ const AuthLayout = () => {
           }}
         />
       </Stack>
+      <Stack>
+        <Stack.Screen
+          name="StackNavigator"
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack>
     </>
   );
 };

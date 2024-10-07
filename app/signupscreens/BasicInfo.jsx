@@ -10,9 +10,7 @@ import React, { useEffect } from "react";
 import LottieView from "lottie-react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const BasicInfo = () => {
-  const navigation = useNavigation();
-
+const BasicInfo = ({ navigation }) => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ marginTop: 40 }}>
@@ -56,7 +54,7 @@ const BasicInfo = () => {
       </View>
 
       <Pressable
-        onPress={() => navigation.navigate("NameScreen")}
+        onPress={() => navigation.navigate("Name")}
         style={{ backgroundColor: "#900C3F", padding: 15, marginTop: "auto" }}
       >
         <Text
