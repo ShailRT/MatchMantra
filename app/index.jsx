@@ -7,7 +7,7 @@ export default function App() {
   const { user } = useContext(UserContext);
 
   if (user?.token) {
-    return <Redirect href="feed" />
+    return <Redirect href="feed" />;
   }
 
   return (
@@ -21,6 +21,5 @@ export default function App() {
         <Text>Home</Text>
       </Link>
     </View>
-
   );
 }
