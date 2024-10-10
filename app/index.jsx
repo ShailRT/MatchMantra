@@ -20,6 +20,15 @@ export default function App() {
       <Link href="/feed">
         <Text>Home</Text>
       </Link>
+
+      <Link
+        href="StackNavigator"
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Text>Sign Up</Text>
+      </Link>
     </View>
 
   );
