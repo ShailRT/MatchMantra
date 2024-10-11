@@ -7,30 +7,32 @@ import {
   Pressable,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useContext} from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { SignUpContext } from "../_layout";
 
 const TypeScreen = ({ navigation }) => {
+  const { signUpForm, setSignUpForm } = useContext(SignUpContext);
   const [type, setType] = useState("");
-  // const navigation = useNavigation();
-  // useEffect(() => {
-  //   getRegistrationProgress('Type').then(progressData => {
-  //     if (progressData) {
-  //       setType(progressData.type || '');
-  //     }
-  //   });
-  // }, []);
+ 
+  useEffect(() => {
+    if(signUpForm?.genderType ){
+      setType(signUpForm?.genderType);
+    }
+  }, []);
 
-  // const handleNext = () => {
-  //   if (type.trim() !== '') {
-  //     // Save the current progress data including the name
-  //     saveRegistrationProgress('Type', {type});
-  //   }
-  //   // Navigate to the next screen
-  //   navigation.navigate('Dating');
-  // };
+  const handleNext = () => {
+    if (type.trim() !== "" ) {
+      setSignUpForm({...signUpForm, genderType:type})
+      // Navigate to the next screen
+      navigation.navigate("Dating");
+    }else{
+      // apply check
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ marginTop: 30, marginHorizontal: 20 }}>
@@ -63,7 +65,7 @@ const TypeScreen = ({ navigation }) => {
           style={{
             fontSize: 25,
             fontWeight: "bold",
-            fontFamily: "GeezaPro-Bold",
+            
             marginTop: 15,
           }}
         >
@@ -154,7 +156,7 @@ const TypeScreen = ({ navigation }) => {
           <Text style={{ fontSize: 15 }}>Visible on profile</Text>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Dating")}
+          onPress={handleNext}
           activeOpacity={0.8}
           style={{ marginTop: 30, marginLeft: "auto" }}
         >

@@ -10,7 +10,7 @@ import React, { useState, useEffect } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { useRoute } from "@react-navigation/native";
-// import axios from "axios";
+
 
 const PromptsScreen = ({ navigation }) => {
   const route = useRoute();
@@ -109,7 +109,7 @@ const PromptsScreen = ({ navigation }) => {
           style={{
             fontSize: 25,
             fontWeight: "bold",
-            fontFamily: "GeezaPro-Bold",
+            
             marginTop: 15,
           }}
         >

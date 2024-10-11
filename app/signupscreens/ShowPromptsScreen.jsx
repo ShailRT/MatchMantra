@@ -101,7 +101,7 @@ const ShowPromptsScreen = ({ navigation }) => {
     setQuestion("");
     setAnswer("");
     setModalVisible(false);
-    if (prompts.length === 3) {
+    if (prompts.length === 3) { 
       setModalVisible(false);
       navigation.navigate("Prompts", {
         prompts: prompts,

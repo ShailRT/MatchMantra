@@ -111,7 +111,7 @@ const PreFinalScreen = () => {
           style={{
             fontSize: 35,
             fontWeight: "bold",
-            fontFamily: "GeezaPro-Bold",
+            
             marginLeft: 20,
           }}
         >
@@ -121,7 +121,7 @@ const PreFinalScreen = () => {
           style={{
             fontSize: 33,
             fontWeight: "bold",
-            fontFamily: "GeezaPro-Bold",
+            
             marginLeft: 20,
             marginRight: 10,
             marginTop: 10,

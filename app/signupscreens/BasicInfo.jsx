@@ -3,12 +3,10 @@ import {
   Text,
   View,
   SafeAreaView,
-  Image,
   Pressable,
 } from "react-native";
-import React, { useEffect } from "react";
+import React from "react";
 import LottieView from "lottie-react-native";
-import { useNavigation } from "@react-navigation/native";
 
 const BasicInfo = ({ navigation }) => {
   return (
@@ -18,7 +16,7 @@ const BasicInfo = ({ navigation }) => {
           style={{
             fontSize: 35,
             fontWeight: "bold",
-            fontFamily: "GeezaPro-Bold",
+            
             marginLeft: 20,
           }}
         >
@@ -28,7 +26,7 @@ const BasicInfo = ({ navigation }) => {
           style={{
             fontSize: 33,
             fontWeight: "bold",
-            fontFamily: "GeezaPro-Bold",
+            
             marginLeft: 20,
             marginTop: 10,
           }}

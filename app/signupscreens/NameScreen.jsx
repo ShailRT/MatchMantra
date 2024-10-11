@@ -8,32 +8,32 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useContext} from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { SignUpContext } from "../_layout";
 
-// import {
-//   getRegistrationProgress,
-//   saveRegistrationProgress,
-// } from "../registrationUtils";
 
 const NameScreen = ({ navigation }) => {
-  // const [firstName, setFirstName] = useState("");
-  // useEffect(() => {
-  //   getRegistrationProgress("Name").then((progressData) => {
-  //     if (progressData) {
-  //       setFirstName(progressData.firstName || "");
-  //     }
-  //   });
-  // }, []);
+  const { signUpForm, setSignUpForm } = useContext(SignUpContext);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
 
-  // const handleNext = () => {
-  //   if (firstName.trim() !== "") {
-  //     // Save the current progress data including the name
-  //     saveRegistrationProgress("Name", { firstName });
-  //   }
-  //   // Navigate to the next screen
-  //   navigation.navigate("Email");
-  // };
+  useEffect(() => {
+    if(signUpForm?.firstName || signUpForm?.lastName){
+      setFirstName(signUpForm?.firstName);
+      setLastName(signUpForm?.lastName);
+    }
+  }, []);
+
+  const handleNext = () => {
+    if (firstName.trim() !== "" && lastName.trim() !== "") {
+      setSignUpForm({...signUpForm, firstName: firstName , lastName: lastName})
+      // Navigate to the next screen
+      navigation.navigate("Email");
+    }else{
+      // apply check
+    }
+  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ marginTop: 30, marginHorizontal: 20 }}>
@@ -68,15 +68,15 @@ const NameScreen = ({ navigation }) => {
             style={{
               fontSize: 25,
               fontWeight: "bold",
-              fontFamily: "GeezaPro-Bold",
+              
             }}
           >
             What's your name?
           </Text>
           <TextInput
             autoFocus={true}
-            // value={firstName}
-            // onChangeText={(text) => setFirstName(text)}
+            value={firstName ? firstName: null}
+            onChangeText={(text) => setFirstName(text)}
             style={{
               width: 340,
               marginVertical: 10,
@@ -85,12 +85,14 @@ const NameScreen = ({ navigation }) => {
               borderBottomColor: "black",
               borderBottomWidth: 1,
               paddingBottom: 10,
-              fontFamily: "GeezaPro-Bold",
+              
             }}
             placeholder="First name (required)"
             placeholderTextColor={"#BEBEBE"}
           />
           <TextInput
+            value={lastName ? lastName: null}
+            onChangeText={(text) => setLastName(text)}
             style={{
               width: 340,
               marginVertical: 10,
@@ -99,7 +101,7 @@ const NameScreen = ({ navigation }) => {
               borderBottomColor: "black",
               borderBottomWidth: 1,
               paddingBottom: 10,
-              fontFamily: "GeezaPro-Bold",
+              
             }}
             placeholder="Last name"
             placeholderTextColor={"#BEBEBE"}
@@ -109,7 +111,7 @@ const NameScreen = ({ navigation }) => {
           </Text>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Email")}
+          onPress={handleNext}
           activeOpacity={0.8}
           style={{ marginTop: 30, marginLeft: "auto" }}
         >
