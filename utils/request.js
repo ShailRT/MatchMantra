@@ -19,6 +19,6 @@ export const request = ({ url, method, data, headers, fullUrl }) => {
   });
 };
 
-export const addTokenToAxios = (token) => {
-  axios.defaults.headers.Authorization = token;
-};
+// export const addTokenToAxios = (token) => {
+//     axios.defaults.headers.Authorization = token;
+// }

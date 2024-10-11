@@ -2,13 +2,15 @@ import { SplashScreen, Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { addTokenToAxios } from "../utils/request";
+// import { addTokenToAxios } from "../utils/request";
 
 SplashScreen.preventAutoHideAsync();
 export const UserContext = React.createContext();
+export const SignUpContext = React.createContext();
 
 const RootLayout = () => {
   const [user, setUser] = useState();
+  const [signUpForm, setSignUpForm]= useState();
   const [fontsLoaded, error] = useFonts({
     "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
     "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
@@ -35,7 +37,7 @@ const RootLayout = () => {
   // adding token to axios
   useEffect(() => {
     if (user?.token) {
-      addTokenToAxios(user?.token);
+      // addTokenToAxios(user?.token);
     }
   }, [user]);
 
@@ -58,12 +60,16 @@ const RootLayout = () => {
   console.log(user);
   return (
     <UserContext.Provider value={{ user, setUser }}>
+      <SignUpContext.Provider value={{ signUpForm, setSignUpForm }}>
+
       <Stack>
         <Stack.Screen name="index" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="StackNavigator" options={{ headerShown: false }} />
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
       </Stack>
+
+      </SignUpContext.Provider>
     </UserContext.Provider>
   );
 };

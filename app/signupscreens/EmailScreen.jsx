@@ -8,30 +8,33 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Fontisto from "react-native-vector-icons/Fontisto";
+import { SignUpContext } from "../_layout";
 
 const EmailScreen = ({ navigation }) => {
+  const {signUpForm,setSignUpForm} = useContext(SignUpContext)
   const [email, setEmail] = useState("");
+  
+  useEffect(() => {
+    if(signUpForm?.email ){
+      setEmail(signUpForm?.email);
+       
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   getRegistrationProgress('Email').then((progressData) => {
-  //     if (progressData) {
-  //       setEmail(progressData.email || '');
-  //     }
-  //   });
-  // }, []);
+  const handleNext = () => {
+    if (email.trim() !== "" ) {
+      setSignUpForm({...signUpForm, email: email.toLowerCase()})
+      // Navigate to the next screen
+      navigation.navigate("Password");
+    }else{
+      // apply check
+    }
+  };
 
-  // const handleNext = () => {
-  //   if (email.trim() !== '') {
-  //       console.log("name",email)
-  //     // Save the current progress data including the name
-  //     saveRegistrationProgress('Email', { email });
-  //   }
-  //   // Navigate to the next screen
-  //   navigation.navigate('Password');
-  // };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ marginTop: 30, marginHorizontal: 20 }}>
@@ -60,7 +63,7 @@ const EmailScreen = ({ navigation }) => {
           style={{
             fontSize: 25,
             fontWeight: "bold",
-            fontFamily: "GeezaPro-Bold",
+            
             marginTop: 15,
           }}
         >
@@ -75,8 +78,8 @@ const EmailScreen = ({ navigation }) => {
         </Text>
         <TextInput
           autoFocus={true}
-          // value={email}
-          // onChangeText={(text) => setEmail(text)}
+          value={email ? email: null}
+          onChangeText={(text) => setEmail(text)}
           style={{
             width: 340,
             marginVertical: 10,
@@ -85,7 +88,7 @@ const EmailScreen = ({ navigation }) => {
             borderBottomColor: "black",
             borderBottomWidth: 1,
             paddingBottom: 10,
-            fontFamily: "GeezaPro-Bold",
+            
           }}
           placeholder="Enter your email"
           placeholderTextColor={"#BEBEBE"}
@@ -94,7 +97,7 @@ const EmailScreen = ({ navigation }) => {
           Note: You will be asked to verify your email
         </Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Password")}
+          onPress={handleNext}
           activeOpacity={0.8}
           style={{ marginTop: 30, marginLeft: "auto" }}
         >
