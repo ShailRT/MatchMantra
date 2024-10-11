@@ -25,9 +25,11 @@ import {
   skipProfile,
 } from "../../../utils/backendCalls";
 import LikeBtn from "../../../components/LikeBtn";
+import { getEvents } from "../../../utils/backendCalls";
 
 const events = () => {
   const { user } = useContext(UserContext);
+  const [events, setEvents] = useState([]);
   const [profile, setProfile] = useState({});
   const [profilePictures, setProfilePictures] = useState([]);
 
@@ -42,6 +44,15 @@ const events = () => {
       console.log("error while getting profile: ", error);
     }
   }
+
+  useEffect(() => {
+    const getEventsFromApi = async () => {
+      const api_events = await getEvents();
+      console.log("api_events ", api_events);
+      setEvents(api_events);
+    };
+    getEventsFromApi();
+  }, []);
 
   const prefrenceList = [
     { id: 1, text: "", icon: SearchIcon },
@@ -75,9 +86,11 @@ const events = () => {
 
       <FlatList
         className="mb-7"
-        data={[{ id: 1 }]}
+        data={events}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <EventCard image={item.image} id={item.id} />}
+        renderItem={({ item }) => (
+          <EventCard image={item.event_image} title={item.name} id={item.id} />
+        )}
         ListHeaderComponent={() => (
           <View className="px-6">
             <View className="justify-between items-start flex-row mb-3">

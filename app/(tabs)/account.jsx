@@ -12,8 +12,23 @@ import { Ionicons, Feather } from "@expo/vector-icons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { router } from "expo-router";
+import { useContext } from "react";
+import { UserContext } from "../_layout";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const account = () => {
+  const { user, setUser } = useContext(UserContext);
+
+  const logout = async () => {
+    try {
+      setUser({});
+      AsyncStorage.clear();
+      router.replace("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <SafeAreaView>
       <View
@@ -33,7 +48,11 @@ const account = () => {
           />
         </View>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-          <AntDesign name="infocirlce" size={24} color="black" />
+          <TouchableOpacity onPress={logout}>
+            <View>
+              <AntDesign name="infocirlce" size={24} color="black" />
+            </View>
+          </TouchableOpacity>
           <AntDesign name="setting" size={24} color="black" />
         </View>
       </View>
@@ -83,7 +102,7 @@ const account = () => {
                 justifyContent: "center",
               }}
             >
-              Shailesh
+              {user.user?.name}
             </Text>
             <MaterialIcons name="verified" size={22} color="#662d91" />
           </View>

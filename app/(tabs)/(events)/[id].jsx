@@ -23,7 +23,7 @@ const eventDetails = () => {
             className="w-10 h-10 scale-x-[-1]"
             resizeMode="contain"
           />
-          <Text className="font-psemibold text-base">Garba Night</Text>
+          <Text className="font-psemibold text-base">{id}</Text>
         </View>
       </TouchableOpacity>
       <ScrollView>
@@ -86,7 +86,7 @@ const eventDetails = () => {
           </View>
         </View>
       </ScrollView>
-      <View className=" flex-row w-full px-5 pt-3 pb-1 bottom-14 bg-secondary">
+      <View className="flex-row w-full px-5 pt-3 pb-1 bottom-14 bg-secondary">
         <TouchableOpacity className="w-44">
           <View className="px-4 h-12 items-center justify-center mr-2 rounded-full border-gray-100 border text-black-100">
             <Text className="font-pmedium">Buy Tickets</Text>

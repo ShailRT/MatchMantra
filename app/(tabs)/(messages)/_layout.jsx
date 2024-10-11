@@ -6,6 +6,7 @@ const MessageLayout = () => {
   return (
     <Stack>
       <Stack.Screen name="messages" options={{ headerShown: false }} />
+      <Stack.Screen name="[query]" options={{ headerShown: false }} />
     </Stack>
   );
 };

@@ -3,13 +3,13 @@ import React from "react";
 import { HingeLogo } from "../constants/icons";
 import { Link, router } from "expo-router";
 
-const EventCard = ({ image, id }) => {
+const EventCard = ({ image, id, title }) => {
   return (
     <View className="flex-col items-center px-4 mb-6 shadow-sm shadow-black-50 ">
       <View className="w-full h-52 border border-gray-100 rounded-t-xl">
         <Image
           source={{
-            uri: "https://static.tnn.in/thumb/113487793/113487793.jpg?height=746&width=420&resizemode=76&imgsize=70468",
+            uri: `http://www.shaadimantraa.com/storage/event/${image}`,
           }}
           className="w-full h-full rounded-t-xl"
           resizeMode="cover"
@@ -22,7 +22,7 @@ const EventCard = ({ image, id }) => {
               className="font-psemibold text-lg align-middle"
               numberOfLines={1}
             >
-              Garba Knight
+              {title}
             </Text>
             <Text
               className="font-psemibold text-sm align-middle text-black-100/50 bg-secondary"
@@ -31,18 +31,10 @@ const EventCard = ({ image, id }) => {
               14 Aug 2024 onwards
             </Text>
             <View className="flex-row mt-2">
-              <TouchableOpacity>
-                <Link
-                  href={{
-                    pathname: "/(events)/[id]",
-                    params: { id: 1 },
-                  }}
-                  className="mt-1 p-0"
-                >
-                  <View className="px-4 h-10 items-center justify-center mr-2 rounded-full border-gray-100 border text-black-100">
-                    <Text className="font-pmedium ">Details</Text>
-                  </View>
-                </Link>
+              <TouchableOpacity onPress={() => router.push("./Garba Knight")}>
+                <View className="px-4 h-10 items-center justify-center mr-2 rounded-full border-gray-100 border text-black-100">
+                  <Text className="font-pmedium ">Details</Text>
+                </View>
               </TouchableOpacity>
 
               <TouchableOpacity>

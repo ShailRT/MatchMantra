@@ -22,7 +22,6 @@ import {
 } from "../../utils/backendCalls";
 import LikeBtn from "../../components/LikeBtn";
 import FeedInfo from "../../components/FeedInfo";
-
 const feed = () => {
   const { user } = useContext(UserContext);
   const [profile, setProfile] = useState({});
