@@ -14,12 +14,26 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import { SignUpContext } from "../_layout";
+import * as ImagePicker from 'react-native-image-picker';
 
 const PhotoScreen = ({ navigation }) => {
   const { signUpForm, setSignUpForm } = useContext(SignUpContext);
   
-  const [imageUrls, setImageUrls] = useState(["", "", "", "", "", ""]);
+  const [imageUrls, setImageUrls] = useState(["", "", ""]);
   const [imageUrl, setImageUrl] = useState("");
+
+  const selectPhoto = () => {
+    ImagePicker.launchImageLibrary({ mediaType: 'photo' }, (response) => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.errorMessage) {
+        console.log('Image Picker Error: ', response.errorMessage);
+      } else if (response.assets && response.assets.length > 0) {
+        const selectedPhoto = response.assets[0];
+        setPhoto(selectedPhoto);
+      }
+    });
+  };
 
   const handleAddImage = () => {
     // Find the first empty slot in the array
@@ -204,7 +218,8 @@ const PhotoScreen = ({ navigation }) => {
             />
           </View>
           <Button
-            onPress={handleAddImage}
+            // onPress={handleAddImage}
+            onPress={selectPhoto}
             style={{ marginTop: 5 }}
             title="Add Image"
           />
