@@ -15,77 +15,72 @@ import { useState, useContext, useEffect } from "react";
 import PromptCard from "../../components/PromptCard";
 import { UserContext } from "./../_layout";
 import NeedSignIn from "../../components/NeedSignIn";
-import { getMatchingProfile, likeProfile, skipProfile } from "../../utils/backendCalls";
+import {
+  getMatchingProfile,
+  likeProfile,
+  skipProfile,
+} from "../../utils/backendCalls";
 import LikeBtn from "../../components/LikeBtn";
-
-
+import FeedInfo from "../../components/FeedInfo";
 const feed = () => {
   const { user } = useContext(UserContext);
-  const [profile,setProfile]= useState({});
-  const [profilePictures,setProfilePictures]= useState([]);
+  const [profile, setProfile] = useState({});
+  const [profilePictures, setProfilePictures] = useState([]);
 
   async function fetchProfile() {
-    try{
-        const profile= await getMatchingProfile(user.token);
-        console.log("profile returned: "+ profile);
-        if(profile){
-          setProfile(profile);
-        }
-        
-    }catch(error){
+    try {
+      const profile = await getMatchingProfile(user.token);
+      console.log("profile returned: " + profile);
+      if (profile) {
+        setProfile(profile);
+      }
+    } catch (error) {
       console.log("error while getting profile: ", error);
     }
   }
 
-  useEffect(()=>{
-    if(user?.token){
-      console.log("token kya h?"+user?.token);
-     fetchProfile();
+  useEffect(() => {
+    if (user?.token) {
+      console.log("token kya h?" + user?.token);
+      fetchProfile();
     }
+  }, []);
 
-  },[])
-
-  
-  useEffect(()=>{
-    if(profile?.profile_pictures){
+  useEffect(() => {
+    if (profile?.profile_pictures) {
       setProfilePictures(JSON.parse(profile.profile_pictures));
-    }else{
+    } else {
       setProfilePictures(null);
     }
-    
-  },[profile]);
-  
-  
-  const handleReject=async()=>{
+  }, [profile]);
+
+  const handleReject = async () => {
     console.log("tapped reject");
-    try{
-      const data={
-        "user_id" : profile?.id
-      }
-      console.log("data: "+ data);
-      skipProfile(data,user.token);
+    try {
+      const data = {
+        user_id: profile?.id,
+      };
+      console.log("data: " + data);
+      skipProfile(data, user.token);
       fetchProfile();
-    }catch(error){
-      console.log("Error while calling skip api "+ error);
+    } catch (error) {
+      console.log("Error while calling skip api " + error);
     }
-  
-  }
+  };
 
-  const handleLike=async()=>{
+  const handleLike = async () => {
     console.log("tapped like");
-    try{
-      const data={
-        "user_id" : profile?.id
-      }
-      console.log("data: "+ data);
-      likeProfile(data,user.token);
+    try {
+      const data = {
+        user_id: profile?.id,
+      };
+      console.log("data: " + data);
+      likeProfile(data, user.token);
       fetchProfile();
-    }catch(error){
-      console.log("Error while calling skip api "+ error);
+    } catch (error) {
+      console.log("Error while calling skip api " + error);
     }
-  
-  }
-
+  };
 
   const prefrenceList = [
     { id: 1, text: "", icon: SearchIcon },
@@ -123,25 +118,30 @@ const feed = () => {
 
           <FlatList
             className="mb-7"
-
-            data={profilePictures?.map((imageUrl,index)=>({
-              id:index+1,
-              image: "http://www.shaadimantraa.com/storage/profile_pictures/"+imageUrl
+            data={profilePictures?.map((imageUrl, index) => ({
+              id: index + 1,
+              image:
+                "http://www.shaadimantraa.com/storage/profile_pictures/" +
+                imageUrl,
             }))}
-
             keyExtractor={(item) => item.id}
             renderItem={({ item }) => {
               return item.prompt ? (
                 <PromptCard prompt={item.prompt} />
               ) : (
-                <ImageCard image={item.image} />
+                <>
+                  <ImageCard image={item.image} />
+                  <FeedInfo />
+                </>
               );
             }}
             ListHeaderComponent={() => (
               <View className="px-6">
                 <View className="justify-between items-start flex-row mb-3">
                   <View>
-                    <Text className="font-psemibold text-3xl">{profile?.name}</Text>
+                    <Text className="font-psemibold text-3xl">
+                      {profile?.name}
+                    </Text>
                   </View>
                   <View className="flex-row">
                     <View className="mt-1.5">
@@ -163,18 +163,19 @@ const feed = () => {
               </View>
             )}
           />
-          
-          <TouchableOpacity onPress={handleLike}>
 
-          <LikeBtn />
-          </TouchableOpacity>
-          
-          <TouchableOpacity onPress={handleReject}>
-
-            <RejectBtn />
-          </TouchableOpacity>
-
-         
+          <View className="flex-row">
+            <View>
+              <TouchableOpacity onPress={handleReject}>
+                <RejectBtn />
+              </TouchableOpacity>
+            </View>
+            <View className="ml-auto">
+              <TouchableOpacity onPress={handleLike}>
+                <LikeBtn />
+              </TouchableOpacity>
+            </View>
+          </View>
         </>
       )}
     </SafeAreaView>

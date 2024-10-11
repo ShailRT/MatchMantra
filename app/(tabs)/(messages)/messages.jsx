@@ -1,10 +1,10 @@
 import { View, Text, FlatList, Image } from "react-native";
 import React, { useContext } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { StarIcon } from "../../constants/icons";
-import MessageItem from "../../components/MessageItem";
-import { UserContext } from "./../_layout";
-import NeedSignIn from "../../components/NeedSignIn";
+import { StarIcon } from "../../../constants/icons";
+import MessageItem from "../../../components/MessageItem";
+import { UserContext } from "../../_layout";
+import NeedSignIn from "../../../components/NeedSignIn";
 
 const Messages = () => {
   const { user } = useContext(UserContext);
