@@ -14,35 +14,62 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import { SignUpContext } from "../_layout";
-import * as ImagePicker from 'react-native-image-picker';
+import * as ImagePicker from 'expo-image-picker';
+import { setProfileImage } from "../../utils/backendCalls";
+import { createDataForImage } from "../../utils/payloadUtils";
 
 const PhotoScreen = ({ navigation }) => {
   const { signUpForm, setSignUpForm } = useContext(SignUpContext);
-  
-  const [imageUrls, setImageUrls] = useState(["", "", ""]);
-  const [imageUrl, setImageUrl] = useState("");
+  const [photo, setPhoto] = useState(null);
 
-  const selectPhoto = () => {
-    ImagePicker.launchImageLibrary({ mediaType: 'photo' }, (response) => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.errorMessage) {
-        console.log('Image Picker Error: ', response.errorMessage);
-      } else if (response.assets && response.assets.length > 0) {
-        const selectedPhoto = response.assets[0];
-        setPhoto(selectedPhoto);
-      }
-    });
+  const [imageUrls, setImageUrls] = useState(["", "", ""]);
+
+  // requestPermission 
+  const requestPermission = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      alert('Sorry, we need camera roll permissions to make this work!');
+    }
   };
 
-  const handleAddImage = () => {
+
+  const selectPhoto = async () => {
+    // const hasPermission = await requestPermission();
+    // if (!hasPermission) return;
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+
+      if (!result.canceled) {
+        setPhoto(result.assets[0].uri); // `assets` is an array, use the first one
+      }
+      console.log("result from picker ",result.assets[0]);
+
+      
+    } catch (error) {
+      console.error('Error selecting photo:', error);
+    }
+  };
+
+  const handleAddImage = async () => {
     // Find the first empty slot in the array
     const index = imageUrls.findIndex((url) => url === "");
     if (index !== -1) {
-      const updatedUrls = [...imageUrls];
-      updatedUrls[index] = imageUrl;
-      setImageUrls(updatedUrls);
-      setImageUrl("");
+      try{
+        const formData= createDataForImage(photo, index);
+        await setProfileImage(formData);
+        const updatedUrls = [...imageUrls];
+        updatedUrls[index] = photo;
+        setImageUrls(updatedUrls);
+        setPhoto("");
+      }catch(error){
+        console.log("error inside handleAddImage",error);
+      }
+ 
     }
   };
 
@@ -53,6 +80,15 @@ const PhotoScreen = ({ navigation }) => {
     }
   }, []);
 
+  useEffect(()=>{
+    if(photo!=null){
+      handleAddImage();
+
+    }
+  },[photo])
+
+  console.log("image urs: " , imageUrls);
+
   const handleNext = () => {
     if (imageUrls.length>0) {
       setSignUpForm({...signUpForm, profile_pictures: imageUrls })
@@ -62,6 +98,18 @@ const PhotoScreen = ({ navigation }) => {
       // apply check
     }
   };
+
+
+  const removeImage=(index)=>{
+    console.log("clicked remove image");
+    if (index !== -1) {
+      const updatedUrls = [...imageUrls];
+      updatedUrls[index] = "";
+      setImageUrls(updatedUrls);
+      setPhoto("");
+    }
+    
+  }
 
   return (
     <SafeAreaView>
@@ -108,6 +156,7 @@ const PhotoScreen = ({ navigation }) => {
           >
             {imageUrls?.slice(0, 3).map((url, index) => (
               <Pressable
+                onPress= {()=>removeImage(index)}
                 key={index}
                 style={{
                   borderColor: "#581845",
@@ -137,7 +186,7 @@ const PhotoScreen = ({ navigation }) => {
             ))}
           </View>
         </View>
-        <View style={{ marginTop: 20 }}>
+        {/* <View style={{ marginTop: 20 }}>
           <View
             style={{
               flexDirection: "row",
@@ -175,7 +224,7 @@ const PhotoScreen = ({ navigation }) => {
               </Pressable>
             ))}
           </View>
-        </View>
+        </View> */}
 
         <View style={{ marginVertical: 10 }}>
           <Text style={{ color: "gray", fontSize: 15 }}>Drag to reorder</Text>
@@ -187,36 +236,13 @@ const PhotoScreen = ({ navigation }) => {
               marginTop: 3,
             }}
           >
-            Add four to six photos
+            Add three photos
           </Text>
         </View>
 
         <View style={{ marginTop: 25 }}>
-          <Text>Add a picture of yourself</Text>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              gap: 5,
-              paddingVertical: 5,
-              borderRadius: 5,
-              marginTop: 10,
-              backgroundColor: "#DCDCDC",
-            }}
-          >
-            <EvilIcons
-              style={{ marginLeft: 8 }}
-              name="image"
-              size={22}
-              color="black"
-            />
-            <TextInput
-              value={imageUrl}
-              onChangeText={(text) => setImageUrl(text)}
-              style={{ color: "gray", marginVertical: 10, width: 300 }}
-              placeholder="Enter your image url"
-            />
-          </View>
+          {/* <Text>Add a picture of yourself</Text> */}
+          
           <Button
             // onPress={handleAddImage}
             onPress={selectPhoto}

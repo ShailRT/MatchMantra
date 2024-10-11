@@ -1,5 +1,3 @@
-import { UserContext } from "../app/_layout";
-import { useContext } from "react";
 import { request } from "./request";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -116,3 +114,36 @@ export const getEvents = async () => {
     console.log("ERROR geting events > ", error);
   }
 };
+
+export const setProfileImage = async (data,token) => {
+  try {
+    const response = await request({
+      fullUrl: "http://www.shaadimantraa.com/profile/update-photo",
+      method: "post",
+      data: data,
+      headers: {
+         ContentType: 'multipart/form-data',
+         Authorization: `Bearer ${token}` ,
+      },
+    });
+    console.log("set Profile response ", response.data);
+    return response.data;
+  } catch (error) {
+    console.log("ERROR set Profile response > ", error);
+  }
+};
+
+export const removeProfileImage = async (data) => {
+  try {
+    const response = await request({
+      fullUrl: "http://www.shaadimantraa.com/profile/remove-photo",
+      method: "post",
+      data: data
+    });
+    console.log("remove Profile response ", response.data);
+    return response.data;
+  } catch (error) {
+    console.log("ERROR remove Profile response > ", error);
+  }
+};
+

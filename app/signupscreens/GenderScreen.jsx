@@ -20,7 +20,7 @@ const GenderScreen = ({ navigation }) => {
 
   useEffect(() => {
     if(signUpForm?.gender ){
-      setFirstName(signUpForm?.gender); 
+      setGender(signUpForm?.gender); 
     }
   }, []);
 
