@@ -1,6 +1,6 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
-import { Stack, Tabs } from "expo-router";
+import { router, Stack, Tabs } from "expo-router";
 import {
   HingeIcon,
   PersonIcon,
@@ -55,15 +55,15 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="star"
+          name="(events)"
           options={{
-            title: "Star",
+            title: "(events)",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={StarIcon}
                 color={color}
-                name="Star"
+                name="events"
                 focused={focused}
               />
             ),
@@ -85,12 +85,17 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="message"
+          name="(messages)"
           options={{
-            title: "Message",
+            title: "Messages",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <TabIcon icon={MessageIcon} color={color} focused={focused} />
+              <TabIcon
+                icon={MessageIcon}
+                color={color}
+                focused={focused}
+                name="Messages"
+              />
             ),
           }}
         />

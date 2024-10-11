@@ -47,7 +47,7 @@ const Matches = () => {
           contentContainerStyle={{
             alignItems: "center",
           }}
-          showsHorizontalScrollIndicator="false"
+          // showsHorizontalScrollIndicator="false"
           data={prefrenceList}
           keyExtractor={(item) => item.id}
           renderItem={({ item }) => (
@@ -85,7 +85,7 @@ const Matches = () => {
         ]}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <LikeProfile image={item.image} />}
-        showsVerticalScrollIndicator="false"
+        // showsVerticalScrollIndicator="false"
       />
     </SafeAreaView>
   );

@@ -7,7 +7,7 @@ const NeedSignin = () => {
   return (
     <View style={styles.container}>
       <Text>You need to Sign In to use this functionality !</Text>
-      <Link href="/sign-in">
+      <Link href="/(auth)/sign-in">
         <Text>Sign In</Text>
       </Link>
     </View>
