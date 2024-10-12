@@ -10,12 +10,11 @@ export const SignUpContext = React.createContext();
 
 const RootLayout = () => {
   const [user, setUser] = useState();
-  const [signUpForm, setSignUpForm]= useState();
+  const [signUpForm, setSignUpForm] = useState();
   const [fontsLoaded, error] = useFonts({
     "Poppins-Black": require("../assets/fonts/Poppins-Black.ttf"),
     "Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
     "Poppins-ExtraBold": require("../assets/fonts/Poppins-ExtraBold.ttf"),
-    // "Poppins-ExtraLight": require("../assets/fonts/Poppins-ExtraLight.ttf"),
     "Poppins-Light": require("../assets/fonts/Poppins-Light.ttf"),
     "Poppins-Medium": require("../assets/fonts/Poppins-Medium.ttf"),
     "Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
@@ -26,7 +25,8 @@ const RootLayout = () => {
   useEffect(() => {
     (async () => {
       const token = await AsyncStorage.getItem("auth_token");
-      setUser({ token });
+      const auth_user = await AsyncStorage.getItem("auth_user");
+      setUser({ token: token, user: JSON.parse(auth_user) });
       //for loader
       // setTimeout(() => {
       //     setLoading(false);
@@ -61,14 +61,15 @@ const RootLayout = () => {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       <SignUpContext.Provider value={{ signUpForm, setSignUpForm }}>
-
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="StackNavigator" options={{ headerShown: false }} />
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      </Stack>
-
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="StackNavigator"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        </Stack>
       </SignUpContext.Provider>
     </UserContext.Provider>
   );

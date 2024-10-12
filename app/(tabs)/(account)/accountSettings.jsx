@@ -1,8 +1,19 @@
 import Slider from "@react-native-community/slider";
 import React, { useState } from "react";
-import { StyleSheet, View, Text, Switch, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Switch,
+  TouchableOpacity,
+  Image,
+} from "react-native";
 import { Dropdown } from "react-native-element-dropdown";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { ChevronRightIcon } from "../../../constants/icons";
+import { router } from "expo-router";
+import { MaterialIcons } from "@expo/vector-icons";
 const data = [
   { label: "Men", value: "1" },
   { label: "Women", value: "2" },
@@ -17,7 +28,7 @@ const Religion = [
   { label: "Jain", value: "9" },
   { label: "Budhist", value: "10" },
 ];
-const AccountSetting = () => {
+const accountSettings = () => {
   const [isToggleAge, setIsToggleAge] = useState(false);
   const [isToggleDistance, setIsToggleDistance] = useState(false);
   const [isToggleVerified, setIsToggleVerified] = useState(true);
@@ -42,8 +53,19 @@ const AccountSetting = () => {
   };
 
   return (
-    <View style={{ flex: 1, padding: 20, backgroundColor: "#fff" }}>
-      <View style={{ alignItems: "center" }}>
+    <SafeAreaView style={{ flex: 1, padding: 20, backgroundColor: "#fff" }}>
+      <TouchableOpacity onPress={() => router.back()}>
+        <View className="flex-row items-center">
+          {/* <Image
+            source={ChevronRightIcon}
+            className="w-10 h-10 scale-x-[-1]"
+            resizeMode="contain"
+          /> */}
+          <MaterialIcons name="arrow-back-ios-new" size={22} color="black" />
+          <Text className="font-pregular text-base ml-1">Preference</Text>
+        </View>
+      </TouchableOpacity>
+      <View style={{ alignItems: "center" }} className="mt-3">
         <Text
           style={{
             fontSize: 24,
@@ -183,11 +205,11 @@ const AccountSetting = () => {
           </View>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
-export default AccountSetting;
+export default accountSettings;
 const styles = StyleSheet.create({
   dropdown: {
     marginTop: 2,

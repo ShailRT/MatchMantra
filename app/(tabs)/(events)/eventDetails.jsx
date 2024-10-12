@@ -13,41 +13,42 @@ import { ChevronRightIcon } from "../../../constants/icons";
 import WebView from "react-native-webview";
 import axios from "axios";
 import RazorpayCheckout from "react-native-razorpay";
-import { MaterialIcons } from "@expo/vector-icons";
+// import RazorpayCheckout from "react-native-razorpay";
 
 const eventDetails = () => {
   const { id } = useLocalSearchParams();
   const [razorResponse, setRazorResponse] = useState({});
-  // useEffect(() => {
-  //   const getRazorResponse = async () => {
-  //     try {
-  //       const response = await axios.post(
-  //         "http://shaadimantraa.com/create-checkout-session",
-  //         {
-  //           event_id: 9,
-  //         }
-  //       );
-  //       setRazorResponse(response.data);
-  //       console.log("response ", response.data);
-  //     } catch (error) {
-  //       console.log("axios error events", error);
-  //     }
-  //   };
-  //   getRazorResponse();
-  // }, []);
+  useEffect(() => {
+    const getRazorResponse = async () => {
+      try {
+        const response = await axios.post(
+          "http://shaadimantraa.com/create-checkout-session",
+          {
+            event_id: 9,
+          }
+        );
+        setRazorResponse(response.data);
+        console.log("response ", response.data);
+      } catch (error) {
+        console.log("axios error events", error);
+      }
+    };
+    getRazorResponse();
+  }, []);
 
   const handlePayment = () => {
     var options = {
-      description: "Credits towards consultation",
-      image: "https://i.imgur.com/3g7nmJC.png",
-      currency: "INR",
-      key: "rzp_test_2BFPuAnuz8ZT1a", // Your api key
-      amount: "5000",
-      name: "foo",
+      key: razorResponse.key,
+      key_id: razorResponse.key_id,
+      amount: razorResponse.amount,
+      currency: razorResponse.currency,
+      name: razorResponse.name,
+      description: razorResponse.description,
+      order_id: razorResponse.order_id,
       prefill: {
-        email: "void@razorpay.com",
-        contact: "9191919191",
-        name: "Razorpay Software",
+        name: razorResponse.name,
+        email: razorResponse.email,
+        contact: razorResponse.contact,
       },
       theme: { color: "#F37254" },
     };
@@ -62,12 +63,15 @@ const eventDetails = () => {
       });
   };
   return (
-    <SafeAreaView className="h-screen pt-3">
+    <SafeAreaView className="h-screen p-0 m-0">
       <TouchableOpacity onPress={() => router.back()}>
-        <View className="flex-row items-center py-3 pl-4">
-          <MaterialIcons name="arrow-back-ios-new" size={22} color="black" />
-
-          <Text className="font-pregular text-base ml-1">{id}</Text>
+        <View className="flex-row items-center">
+          <Image
+            source={ChevronRightIcon}
+            className="w-10 h-10 scale-x-[-1]"
+            resizeMode="contain"
+          />
+          <Text className="font-psemibold text-base">{id}</Text>
         </View>
       </TouchableOpacity>
       <ScrollView>
@@ -119,8 +123,8 @@ const eventDetails = () => {
           </View>
         </View>
       </ScrollView>
-      <View className="flex-row w-full px-5 pt-3 pb-1 bottom-24 bg-secondary">
-        <TouchableOpacity className="w-44" onPress={handlePayment}>
+      <View className="flex-row w-full px-5 pt-3 pb-1 bottom-20 bg-secondary">
+        <TouchableOpacity className="w-44">
           <View className="px-4 h-12 items-center justify-center mr-2 rounded-full border-gray-100 border text-black-100">
             <Text className="font-pmedium">Buy Tickets</Text>
           </View>

@@ -14,10 +14,9 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { router } from "expo-router";
 import { useContext } from "react";
-import { UserContext } from "../_layout";
+import { UserContext } from "../../_layout";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-
+import { images } from "../../../constants";
 const account = () => {
   const { user, setUser } = useContext(UserContext);
 
@@ -51,11 +50,12 @@ const account = () => {
         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
           <TouchableOpacity onPress={logout}>
             <View>
-              <AntDesign name="infocirlce" size={24} color="black" />
+              <MaterialCommunityIcons name="logout" size={24} color="black" />
             </View>
           </TouchableOpacity>
-
-          <AntDesign name="setting" size={24} color="black" />
+          <TouchableOpacity onPress={() => router.push("./accountSettings")}>
+            <AntDesign name="setting" size={24} color="black" />
+          </TouchableOpacity>
         </View>
       </View>
       <View
@@ -103,6 +103,7 @@ const account = () => {
                 alignItems: "center",
                 justifyContent: "center",
               }}
+              className="font-psemibold"
             >
               {user.user?.name}
             </Text>
@@ -113,9 +114,8 @@ const account = () => {
       <View style={{ marginTop: 30, marginHorizontal: 20 }}>
         <Image
           style={{ height: 220, width: "100%", borderRadius: 10 }}
-          source={{
-            uri: "https://cdn.sanity.io/images/l7pj44pm/production/5f4e26a82da303138584cff340f3eff9e123cd56-1280x720.jpg",
-          }}
+          source={images.shaadiLogo}
+          resizeMode="cover"
         />
       </View>
       <View
@@ -148,8 +148,13 @@ const account = () => {
           />
         </View>
         <View>
-          <Text style={{ fontSize: 15, fontWeight: "600" }}>Boost</Text>
-          <Text style={{ color: "gray", marginTop: 3 }}>
+          <Text
+            style={{ fontSize: 15, fontWeight: "600" }}
+            className="font-psemibold"
+          >
+            Boost
+          </Text>
+          <Text style={{ color: "gray" }} className="font-pregular">
             Get seen by 11x more people
           </Text>
         </View>
@@ -179,8 +184,13 @@ const account = () => {
           <Ionicons name="rose-outline" size={22} color="white" />
         </View>
         <View>
-          <Text style={{ fontSize: 15, fontWeight: "600" }}>Roses</Text>
-          <Text style={{ color: "gray", marginTop: 3 }}>
+          <Text
+            style={{ fontSize: 15, fontWeight: "600" }}
+            className="font-psemibold"
+          >
+            Roses
+          </Text>
+          <Text style={{ color: "gray" }} className="font-pregular">
             2x as likely to lead to a date
           </Text>
         </View>
