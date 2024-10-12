@@ -87,12 +87,12 @@ const GenderScreen = ({ navigation }) => {
               justifyContent: "space-between",
             }}
           >
-            <Text style={{ fontWeight: "500", fontSize: 15 }}>Men</Text>
-            <Pressable onPress={() => setGender("Men")}>
+            <Text style={{ fontWeight: "500", fontSize: 15 }}>Male</Text>
+            <Pressable onPress={() => setGender("Male")}>
               <FontAwesome
                 name="circle"
                 size={26}
-                color={gender == "Men" ? "#581845" : "#F0F0F0"}
+                color={gender == "Male" ? "#581845" : "#F0F0F0"}
               />
             </Pressable>
           </View>
@@ -104,12 +104,12 @@ const GenderScreen = ({ navigation }) => {
               marginVertical: 12,
             }}
           >
-            <Text style={{ fontWeight: "500", fontSize: 15 }}>Women</Text>
-            <Pressable onPress={() => setGender("Women")}>
+            <Text style={{ fontWeight: "500", fontSize: 15 }}>Female</Text>
+            <Pressable onPress={() => setGender("Female")}>
               <FontAwesome
                 name="circle"
                 size={26}
-                color={gender == "Women" ? "#581845" : "#F0F0F0"}
+                color={gender == "Female" ? "#581845" : "#F0F0F0"}
               />
             </Pressable>
           </View>

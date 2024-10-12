@@ -154,3 +154,21 @@ export const removeProfileImage = async (data) => {
   }
 };
 
+
+export const updateProfile = async (data) => {
+  try {
+    const token = await AsyncStorage.getItem("auth_token");
+    const response = await request({
+      fullUrl: "http://www.shaadimantraa.com/api/profile",
+      method: "patch",
+      data: data,
+      headers: {
+         Authorization: `Bearer ${token}` ,
+      },
+    });
+    console.log("update Profile response ", response.data);
+    return [response.data,token];
+  } catch (error) {
+    console.log("ERROR update Profile response > ", error);
+  }
+};
