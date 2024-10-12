@@ -7,12 +7,15 @@ import {
   Pressable,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useContext} from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { SignUpContext } from "../_layout";
 
 const DatingScreen = ({ navigation }) => {
+  const { signUpForm, setSignUpForm } = useContext(SignUpContext);
+  
   const [datingPreferences, setDatingPreferences] = useState([]);
   const chooseOption = (option) => {
     if (datingPreferences.includes(option)) {
@@ -23,24 +26,22 @@ const DatingScreen = ({ navigation }) => {
       setDatingPreferences([...datingPreferences, option]);
     }
   };
-  // const navigation = useNavigation();
-  // useEffect(() => {
-  //   // Fetch the registration progress data for the "Dating" screen
-  //   getRegistrationProgress('Dating').then(progressData => {
-  //     if (progressData) {
-  //       setDatingPreferences(progressData.datingPreferences || []);
-  //     }
-  //   });
-  // }, []);
+ 
+  useEffect(() => {
+    if(signUpForm?.datingPreferences ){
+      datingPreferences(signUpForm?.datingPreferences);
+    }
+  }, []);
 
-  // const handleNext = () => {
-  //   if (datingPreferences.length > 0) {
-  //     // Save the current progress data including the options
-  //     saveRegistrationProgress('Dating', {datingPreferences});
-  //   }
-  //   // Navigate to the next screen
-  //   navigation.navigate('LookingFor');
-  // };
+  const handleNext = () => {
+    if (datingPreferences.length > 0) {
+      setSignUpForm({...signUpForm, datingPreferences: datingPreferences })
+      // Navigate to the next screen
+      navigation.navigate("Look");
+    }else{
+      // apply check
+    }
+  };
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ marginTop: 30, marginHorizontal: 20 }}>
@@ -69,7 +70,7 @@ const DatingScreen = ({ navigation }) => {
           style={{
             fontSize: 25,
             fontWeight: "bold",
-            fontFamily: "GeezaPro-Bold",
+            
             marginTop: 15,
           }}
         >
@@ -149,7 +150,7 @@ const DatingScreen = ({ navigation }) => {
           <Text style={{ fontSize: 15 }}>Visible on profile</Text>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Look")}
+          onPress={handleNext}
           activeOpacity={0.8}
           style={{ marginTop: 30, marginLeft: "auto" }}
         >

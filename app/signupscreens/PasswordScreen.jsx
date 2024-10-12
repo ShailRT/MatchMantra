@@ -8,27 +8,26 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Fontisto from "react-native-vector-icons/Fontisto";
-//   import {useNavigation} from '@react-navigation/native';
-//   import {
-//     getRegistrationProgress,
-//     saveRegistrationProgress,
-//   } from '../registrationUtils';
+import { SignUpContext } from "../_layout";
+ 
 
 const PasswordScreen = ({ navigation }) => {
-  // const navigation = useNavigation();
-  // const [password, setPassword] = useState('');
+  const { signUpForm, setSignUpForm } = useContext(SignUpContext);
+  const [password, setPassword] = useState('');
 
-  // const handleNext = () => {
-  //   if (password.trim() !== '') {
-  //     // Save the current progress data including the name
-  //     saveRegistrationProgress('Password', {password});
-  //   }
-  //   // Navigate to the next screen
-  //   navigation.navigate('Birth');
-  // };
+  const handleNext = () => {
+    if (password.trim() !== "" ) {
+      setSignUpForm({...signUpForm, password:password})
+      // Navigate to the next screen
+      navigation.navigate("Birth");
+    }else{
+      // apply check
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ marginTop: 30, marginHorizontal: 20 }}>
@@ -57,7 +56,7 @@ const PasswordScreen = ({ navigation }) => {
           style={{
             fontSize: 25,
             fontWeight: "bold",
-            fontFamily: "GeezaPro-Bold",
+            
             marginTop: 15,
           }}
         >
@@ -67,8 +66,7 @@ const PasswordScreen = ({ navigation }) => {
         <TextInput
           secureTextEntry={true}
           autoFocus={true}
-          // value={password}
-          // onChangeText={text => setPassword(text)}
+          onChangeText={(text) => setPassword(text)}
           style={{
             width: 340,
             marginVertical: 10,
@@ -77,7 +75,7 @@ const PasswordScreen = ({ navigation }) => {
             borderBottomColor: "black",
             borderBottomWidth: 1,
             paddingBottom: 10,
-            fontFamily: "GeezaPro-Bold",
+            
           }}
           placeholder="Enter your password"
           placeholderTextColor={"#BEBEBE"}
@@ -86,7 +84,7 @@ const PasswordScreen = ({ navigation }) => {
           Note: Your details will be safe with us.
         </Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Birth")}
+          onPress={handleNext}
           activeOpacity={0.8}
           style={{ marginTop: 30, marginLeft: "auto" }}
         >

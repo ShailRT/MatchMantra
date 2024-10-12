@@ -7,21 +7,32 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-//   import {
-//     getRegistrationProgress,
-//     saveRegistrationProgress,
-//   } from '../registrationUtils';
+import { SignUpContext } from "../_layout";
+import { generateRegisterPayload } from "../../utils/payloadUtils";
+import { login, signup } from "../../utils/backendCalls";
 
 const BirthScreen = ({ navigation }) => {
+  const { signUpForm, setSignUpForm } = useContext(SignUpContext);
+  
   const monthRef = useRef(null);
   const yearRef = useRef(null);
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
 
+  useEffect(() => {
+    if(signUpForm?.dob){
+      const [yearValue,monthValue , dayValue] = signUpForm?.dob.split("-");
+      setDay(dayValue);
+      setMonth(monthValue);
+      setYear(yearValue);
+    }
+  }, []);
+ 
+  // todo apply validation for correct date entered .. 
   const handleDayChange = (text) => {
     setDay(text);
     if (text.length == 2) {
@@ -39,37 +50,34 @@ const BirthScreen = ({ navigation }) => {
   const handleYearChange = (text) => {
     setYear(text);
   };
-  // useEffect(() => {
-  //   // Fetch the registration progress data for the "Birth" screen
-  //   getRegistrationProgress('Birth').then(progressData => {
-  //     if (progressData) {
-  //       const {dateOfBirth} = progressData;
-  //       // Split the date of birth string into day, month, and year
-  //       const [dayValue, monthValue, yearValue] = dateOfBirth.split('/');
-  //       // Set the values in the component state
-  //       setDay(dayValue);
-  //       setMonth(monthValue);
-  //       setYear(yearValue);
-  //     }
-  //   });
-  // }, []);
+ 
 
-  // const handleNext = () => {
-  //   // Check if all the date values are provided
-  //   if (day.trim() !== '' && month.trim() !== '' && year.trim() !== '') {
-  //     // Construct the date string in the desired format
-  //     const dateOfBirth = `${day}/${month}/${year}`;
+  const handleNext = async() => {
+    // Check if all the date values are provided
+    if (day.trim() !== '' && month.trim() !== '' && year.trim() !== '') {
+      // Construct the date string in the desired format
+      const dateOfBirth = `${year}-${month}-${day}`;
 
-  //     // Save the current progress data including the date of birth
-  //     saveRegistrationProgress('Birth', {dateOfBirth});
+      // Save the current progress data including the date of birth
+      setSignUpForm({...signUpForm, dob: dateOfBirth})
 
-  //     // Navigate to the next screen
-  //     navigation.navigate('Location'); // Or navigate to the appropriate screen
-  //   } else {
-  //     // Handle the case where the user hasn't provided all the date values
-  //     // You can display a message or take appropriate action here
-  //   }
-  // };
+      const data= generateRegisterPayload({...signUpForm, dob: dateOfBirth});
+      // async call for registering 
+      
+      try{
+        const token= await signup(data);
+        if(token){
+          navigation.navigate('Gender'); // Or navigate to the appropriate screen
+        }
+      }catch(error){
+        console.log("error while registering :",error);
+      }
+
+      // Navigate to the next screen
+    } else {
+      // apply check
+    }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -103,7 +111,7 @@ const BirthScreen = ({ navigation }) => {
           style={{
             fontSize: 25,
             fontWeight: "bold",
-            fontFamily: "GeezaPro-Bold",
+            
             marginTop: 15,
           }}
         >
@@ -126,7 +134,7 @@ const BirthScreen = ({ navigation }) => {
               padding: 10,
               width: 50,
               fontSize: day ? 20 : 20,
-              fontFamily: "GeezaPro-Bold",
+              
             }}
             placeholder="DD"
             keyboardType="numeric"
@@ -144,7 +152,7 @@ const BirthScreen = ({ navigation }) => {
               padding: 10,
               width: 60,
               fontSize: month ? 20 : 20,
-              fontFamily: "GeezaPro-Bold",
+              
             }}
             placeholder="MM"
             keyboardType="numeric"
@@ -162,7 +170,7 @@ const BirthScreen = ({ navigation }) => {
               padding: 10,
               width: 75,
               fontSize: 20,
-              fontFamily: "GeezaPro-Bold",
+              
             }}
             placeholder="YYYY"
             keyboardType="numeric"
@@ -172,7 +180,7 @@ const BirthScreen = ({ navigation }) => {
           />
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Gender")}
+          onPress={handleNext}
           activeOpacity={0.8}
           style={{ marginTop: 30, marginLeft: "auto" }}
         >
@@ -189,5 +197,3 @@ const BirthScreen = ({ navigation }) => {
 };
 
 export default BirthScreen;
-
-const styles = StyleSheet.create({});
