@@ -1,109 +1,27 @@
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
-import AntDesign from "react-native-vector-icons/AntDesign";
-
-import { useRoute } from "@react-navigation/native";
+import React, {useContext } from "react";
 import LottieView from "lottie-react-native";
+import { SignUpContext, UserContext } from "../_layout";
+import { createDataForProfile } from "../../utils/payloadUtils";
+import { updateProfile } from "../../utils/backendCalls";
+import { router } from "expo-router";
 
 const PreFinalScreen = () => {
-  const route = useRoute();
-  const [userData, setUserData] = useState();
-  useEffect(() => {
-    getAllUserData();
-  }, []);
+  const  { signUpForm, setSignUpForm } = useContext(SignUpContext);
+  const {setUser} = useContext(UserContext);
 
-  //   useEffect(() => {
-  //     // Check if the token is set and not in loading state
-  //     if (token) {
-  //       // Navigate to the main screen
-  //       navigation.navigate("MainStack", { screen: "Main" });
-  //     }
-  //   }, [token, navigation]);
-  const getAllUserData = async () => {
-    try {
-      // Define an array to store data for each screen
-      const screens = [
-        "Name",
-        "Email",
-        "Password",
-        "Birth",
-        "Location",
-        "Gender",
-        "Type",
-        "Dating",
-        "LookingFor",
-        "Hometown",
-        "Photos",
-        "Prompts",
-      ]; // Add more screens as needed
-
-      // Define an object to store user data
-      let userData = {};
-
-      // Retrieve data for each screen and add it to the user data object
-      //   for (const screenName of screens) {
-      //     const screenData = await getRegistrationProgress(screenName);
-      //     if (screenData) {
-      //       userData = { ...userData, ...screenData }; // Merge screen data into user data
-      //     }
-      //   }
-
-      // Return the combined user data
-      setUserData(userData);
-    } catch (error) {
-      console.error("Error retrieving user data:", error);
-      return null;
+  const handleSubmit = async() =>{
+    const data = createDataForProfile(signUpForm);
+    try{
+      const response = await updateProfile(data);
+      setSignUpForm("");
+      setUser({  user: response[0].user , token: response[1]})
+      router.push("feed");
+    }catch(error){
+      console.log("error in handleSubmit",error);
     }
-  };
-  const clearAllScreenData = async () => {
-    try {
-      const screens = [
-        "Name",
-        "Email",
-        "Birth",
-        "Location",
-        "Gender",
-        "Type",
-        "Dating",
-        "LookingFor",
-        "Hometown",
-        "Photos",
-      ];
-      // Loop through each screen and remove its data from AsyncStorage
-      for (const screenName of screens) {
-        const key = `registration_progress_${screenName}`;
-        await AsyncStorage.removeItem(key);
-      }
-      console.log("All screen data cleared successfully");
-    } catch (error) {
-      console.error("Error clearing screen data:", error);
-    }
-  };
-  //   const registerUser = async () => {
-  //     try {
-  //       const response = await axios
-  //         .post("http://localhost:3000/register", userData)
-  //         .then((response) => {
-  //           console.log(response);
-  //           const token = response.data.token;
-  //           AsyncStorage.setItem("token", token);
-  //           setToken(token);
-  //         });
-  // Assuming the response contains the user data and token
+  }
 
-  // Store the token in AsyncStorage
-  // navigation.replace('Main', {
-  //   screen: 'Home',
-  // });
-  //   navigation.replace('MainStack', {screen: 'Main'});
-
-  //       clearAllScreenData();
-  //     } catch (error) {
-  //       console.error("Error registering user:", error);
-  //       throw error; // Throw the error for handling in the component
-  //     }
-  //   };
-  //   console.log("user data", userData);
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ marginTop: 30 }}>
@@ -148,7 +66,7 @@ const PreFinalScreen = () => {
       </View>
 
       <Pressable
-        // onPress={registerUser}
+        onPress={handleSubmit}
         style={{ backgroundColor: "#900C3F", padding: 15, marginTop: "auto" }}
       >
         <Text

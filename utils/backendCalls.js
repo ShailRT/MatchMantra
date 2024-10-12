@@ -1,5 +1,3 @@
-import { UserContext } from "../app/_layout";
-import { useContext } from "react";
 import { request } from "./request";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -117,5 +115,63 @@ export const getEvents = async () => {
     return response.data;
   } catch (error) {
     console.log("ERROR geting events > ", error);
+  }
+};
+
+export const setProfileImage = async (data) => {
+  try {
+    const token = await AsyncStorage.getItem("auth_token");
+    console.log("token in setProfile",token);
+    const response = await request({
+      fullUrl: "http://www.shaadimantraa.com/api/profile/photo/update",
+      method: "post",
+      data: data,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+         Authorization: `Bearer ${token}` ,
+      },
+    });
+    console.log("set Profile response ", response.data);
+    return response.data;
+  } catch (error) {
+    console.log("ERROR set Profile response > ", error);
+  }
+};
+
+export const removeProfileImage = async (data) => {
+  try {
+    const token = await AsyncStorage.getItem("auth_token");
+    const response = await request({
+      fullUrl: "http://www.shaadimantraa.com/api/profile/photo/remove",
+      method: "post",
+      data: data,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+         Authorization: `Bearer ${token}` ,
+      },
+    });
+    console.log("remove Profile response ", response.data);
+    return response.data;
+  } catch (error) {
+    console.log("ERROR remove Profile response > ", error);
+  }
+};
+
+
+export const updateProfile = async (data) => {
+  try {
+    const token = await AsyncStorage.getItem("auth_token");
+    const response = await request({
+      fullUrl: "http://www.shaadimantraa.com/api/profile",
+      method: "patch",
+      data: data,
+      headers: {
+         Authorization: `Bearer ${token}` ,
+      },
+    });
+    console.log("update Profile response ", response.data);
+    return [response.data,token];
+  } catch (error) {
+    console.log("ERROR update Profile response > ", error);
   }
 };
