@@ -17,6 +17,7 @@ import { useContext } from "react";
 import { UserContext } from "../_layout";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
 const account = () => {
   const { user, setUser } = useContext(UserContext);
 
@@ -53,6 +54,7 @@ const account = () => {
               <AntDesign name="infocirlce" size={24} color="black" />
             </View>
           </TouchableOpacity>
+
           <AntDesign name="setting" size={24} color="black" />
         </View>
       </View>
