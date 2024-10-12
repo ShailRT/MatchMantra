@@ -9,7 +9,7 @@ import {
   MaterialCommunityIcons,
 } from "@expo/vector-icons";
 
-const FeedInfo = () => {
+const FeedInfo = ({profile}) => {
   return (
     <View
       className="mx-4 mb-6"
@@ -44,7 +44,7 @@ const FeedInfo = () => {
             color="black"
           />
           <Text className="font-pregular" style={{ fontSize: 15 }}>
-            23
+            {profile?.age}
           </Text>
         </View>
 
@@ -57,7 +57,7 @@ const FeedInfo = () => {
         >
           <Ionicons name="person-outline" size={20} color="black" />
           <Text className="font-pregular" style={{ fontSize: 15 }}>
-            Male
+          {profile?.gender}
           </Text>
         </View>
 
@@ -83,7 +83,7 @@ const FeedInfo = () => {
         >
           <Octicons name="home" size={20} color="black" />
           <Text className="font-pregular" style={{ fontSize: 15 }}>
-            Delhi
+          {profile?.city}
           </Text>
         </View>
       </View>
@@ -101,7 +101,7 @@ const FeedInfo = () => {
       >
         <Ionicons name="bag-add-outline" size={20} color="black" />
         <Text className="font-pregular">
-          Research Assistant at Medical College
+        {profile?.occupation}
         </Text>
       </View>
 
@@ -117,7 +117,7 @@ const FeedInfo = () => {
         }}
       >
         <SimpleLineIcons name="graduation" size={22} color="black" />
-        <Text className="font-pregular">University of Bangalore</Text>
+        <Text className="font-pregular">{profile?.education}</Text>
       </View>
 
       <View
@@ -132,7 +132,7 @@ const FeedInfo = () => {
         }}
       >
         <Ionicons name="book-outline" size={20} color="black" />
-        <Text className="font-pregular">Hindu</Text>
+        <Text className="font-pregular">{profile?.religion}</Text>
       </View>
 
       <View
@@ -147,7 +147,7 @@ const FeedInfo = () => {
         }}
       >
         <Ionicons name="home-outline" size={20} color="black" />
-        <Text className="font-pregular">Mathura</Text>
+        <Text className="font-pregular">{profile?.city}</Text>
       </View>
       <View
         style={{
@@ -161,7 +161,7 @@ const FeedInfo = () => {
         }}
       >
         <Feather name="search" size={20} color="black" />
-        <Text className="font-pregular">Female</Text>
+        <Text className="font-pregular">{profile?.genderMatch ? profile?.genderMatch : "Female"}</Text>
       </View>
 
       <View
@@ -174,7 +174,7 @@ const FeedInfo = () => {
         }}
       >
         <Ionicons name="heart-outline" size={20} color="black" />
-        <Text className="font-pregular">Monogamy</Text>
+        <Text className="font-pregular">{profile?.bio}</Text>
       </View>
     </View>
   );
