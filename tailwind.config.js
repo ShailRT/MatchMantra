@@ -19,6 +19,9 @@ module.exports = {
         gray: {
           100: "#CDCDE0",
         },
+        bblack: {
+          DEFAULT: "#E0E0E0",
+        },
       },
       backgroundImage: {
         "custom-radial": "radial-gradient(circle, #43C1BF 60%, #205B5A 100%)",

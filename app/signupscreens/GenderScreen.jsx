@@ -7,30 +7,34 @@ import {
   Pressable,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect , useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { SignUpContext } from "../_layout";
 
 const GenderScreen = ({ navigation }) => {
+  const  { signUpForm, setSignUpForm } = useContext(SignUpContext);
+ 
   const [gender, setGender] = useState("");
-  // const navigation = useNavigation();
-  // useEffect(() => {
-  //   getRegistrationProgress('Gender').then((progressData) => {
-  //     if (progressData) {
-  //       setGender(progressData.gender || '');
-  //     }
-  //   });
-  // }, []);
 
-  // const handleNext = () => {
-  //   if (gender.trim() !== '') {
-  //     // Save the current progress data including the name
-  //     saveRegistrationProgress('Gender', { gender });
-  //   }
-  //   // Navigate to the next screen
-  //   navigation.navigate('Type');
-  // };
+  useEffect(() => {
+    if(signUpForm?.gender ){
+      setFirstName(signUpForm?.gender); 
+    }
+  }, []);
+
+ 
+  const handleNext = () => {
+    if (gender.trim() !== "" ) {
+      setSignUpForm({...signUpForm, gender: gender})
+      // Navigate to the next screen
+      navigation.navigate("HomeT");
+    }else{
+      // apply check
+    }
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ marginTop: 30, marginHorizontal: 20 }}>
@@ -63,7 +67,7 @@ const GenderScreen = ({ navigation }) => {
           style={{
             fontSize: 25,
             fontWeight: "bold",
-            fontFamily: "GeezaPro-Bold",
+            
             marginTop: 15,
           }}
         >
@@ -116,12 +120,12 @@ const GenderScreen = ({ navigation }) => {
               justifyContent: "space-between",
             }}
           >
-            <Text style={{ fontWeight: "500", fontSize: 15 }}>Non-binary</Text>
-            <Pressable onPress={() => setGender("Non-binary")}>
+            <Text style={{ fontWeight: "500", fontSize: 15 }}>Others</Text>
+            <Pressable onPress={() => setGender("Others")}>
               <FontAwesome
                 name="circle"
                 size={26}
-                color={gender == "Non-binary" ? "#581845" : "#F0F0F0"}
+                color={gender == "Others" ? "#581845" : "#F0F0F0"}
               />
             </Pressable>
           </View>
@@ -135,11 +139,11 @@ const GenderScreen = ({ navigation }) => {
             gap: 8,
           }}
         >
-          <AntDesign name="checksquare" size={26} color="#581845" />
-          <Text style={{ fontSize: 15 }}>Visible on profile</Text>
+          {/* <AntDesign name="checksquare" size={26} color="#581845" /> */}
+          {/* <Text style={{ fontSize: 15 }}>Visible on profile</Text> */}
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Type")}
+          onPress={handleNext}
           activeOpacity={0.8}
           style={{ marginTop: 30, marginLeft: "auto" }}
         >

@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 
 const SignIn = () => {
   const [values, setValues] = useState({});
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const onChange = (key, value) => {
     setValues((v) => ({ ...v, [key]: value }));
@@ -54,9 +54,9 @@ const SignIn = () => {
 
     values.email = values.email.toLowerCase();
     try {
-      const token = await login(values);
-      if (token) {
-        setUser({ token });
+      const response = await login(values);
+      if (response.token) {
+        setUser({ token: response.token, user: response.user });
         router.push("feed");
       }
     } catch (error) {

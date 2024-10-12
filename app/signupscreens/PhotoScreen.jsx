@@ -9,12 +9,15 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useContext} from "react";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
+import { SignUpContext } from "../_layout";
 
 const PhotoScreen = ({ navigation }) => {
+  const { signUpForm, setSignUpForm } = useContext(SignUpContext);
+  
   const [imageUrls, setImageUrls] = useState(["", "", "", "", "", ""]);
   const [imageUrl, setImageUrl] = useState("");
 
@@ -29,22 +32,22 @@ const PhotoScreen = ({ navigation }) => {
     }
   };
 
-  //   useEffect(() => {
-  //     // Fetch the saved image URLs from AsyncStorage
-  //     getRegistrationProgress("Photos").then((progressData) => {
-  //       if (progressData && progressData.imageUrls) {
-  //         setImageUrls(progressData.imageUrls);
-  //       }
-  //     });
-  //   }, []);
+  useEffect(() => {
+    if(signUpForm?.profile_pictures){
+      setImageUrls(signUpForm?.profile_pictures);
+       
+    }
+  }, []);
 
-  //   const handleNext = () => {
-  //     // Save the current progress data including the image URLs
-  //     saveRegistrationProgress("Photos", { imageUrls });
-
-  //     // Navigate to the next screen
-  //     navigation.navigate("Prompts"); // Navigate to the appropriate screen
-  //   };
+  const handleNext = () => {
+    if (imageUrls.length>0) {
+      setSignUpForm({...signUpForm, profile_pictures: imageUrls })
+      // Navigate to the next screen
+      navigation.navigate("Prompt");
+    }else{
+      // apply check
+    }
+  };
 
   return (
     <SafeAreaView>
@@ -74,7 +77,7 @@ const PhotoScreen = ({ navigation }) => {
           style={{
             fontSize: 25,
             fontWeight: "bold",
-            fontFamily: "GeezaPro-Bold",
+            
             marginTop: 15,
           }}
         >
@@ -89,7 +92,7 @@ const PhotoScreen = ({ navigation }) => {
               gap: 20,
             }}
           >
-            {imageUrls.slice(0, 3).map((url, index) => (
+            {imageUrls?.slice(0, 3).map((url, index) => (
               <Pressable
                 key={index}
                 style={{
@@ -128,7 +131,7 @@ const PhotoScreen = ({ navigation }) => {
               gap: 20,
             }}
           >
-            {imageUrls.slice(3, 6).map((url, index) => (
+            {imageUrls?.slice(3, 6)?.map((url, index) => (
               <Pressable
                 key={index}
                 style={{
@@ -209,7 +212,7 @@ const PhotoScreen = ({ navigation }) => {
 
         <TouchableOpacity
           //   onPress={() => navigation.navigate('Prompts')}
-          onPress={() => navigation.navigate("Prompt")}
+          onPress={handleNext}
           activeOpacity={0.8}
           style={{ marginTop: 30, marginLeft: "auto" }}
         >

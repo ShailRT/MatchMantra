@@ -7,31 +7,32 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect ,useContext} from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { SignUpContext } from "../_layout";
 
 const LookingFor = ({ navigation }) => {
   const [lookingFor, setLookingFor] = useState([]);
-  //   const navigation = useNavigation();
-  //   useEffect(() => {
-  //     getRegistrationProgress("LookingFor").then((progressData) => {
-  //       if (progressData) {
-  //         setLookingFor(progressData.lookingFor || "");
-  //       }
-  //     });
-  //   }, []);
+  const { signUpForm, setSignUpForm } = useContext(SignUpContext);
+ 
+  useEffect(() => {
+    if(signUpForm?.lookingFor ){
+      setLookingFor(signUpForm?.lookingFor);
+    }
+  }, []);
 
-  //   const handleNext = () => {
-  //     if (lookingFor.trim() !== "") {
-  //       // Save the current progress data including the name
-  //       saveRegistrationProgress("LookingFor", { lookingFor });
-  //     }
-  //     // Navigate to the next screen
-  //     navigation.navigate("Hometown");
-  //   };
-
+  const handleNext = () => {
+    if (lookingFor.trim() !== "" ) {
+      setSignUpForm({...signUpForm, lookingFor: lookingFor })
+      // Navigate to the next screen
+      navigation.navigate("HomeT");
+    }else{
+      // apply check
+    }
+  };
+ 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ marginTop: 30, marginHorizontal: 20 }}>
@@ -60,7 +61,7 @@ const LookingFor = ({ navigation }) => {
           style={{
             fontSize: 25,
             fontWeight: "bold",
-            fontFamily: "GeezaPro-Bold",
+            
             marginTop: 15,
           }}
         >
@@ -218,7 +219,7 @@ const LookingFor = ({ navigation }) => {
           <Text style={{ fontSize: 15 }}>Visible on profile</Text>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate("HomeT")}
+          onPress={handleNext}
           activeOpacity={0.8}
           style={{ marginTop: 30, marginLeft: "auto" }}
         >

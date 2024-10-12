@@ -8,30 +8,33 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { SignUpContext } from "../_layout";
 
 const HomeTownScreen = ({ navigation }) => {
+  const { signUpForm, setSignUpForm } = useContext(SignUpContext);
   const [hometown, setHometown] = useState("");
-  // const navigation = useNavigation();
-  // useEffect(() => {
-  //     getRegistrationProgress('Hometown').then(progressData => {
-  //       if (progressData) {
-  //         setHometown(progressData.hometown || '');
-  //       }
-  //     });
-  //   }, []);
 
-  //   const handleNext = () => {
-  //     if (hometown.trim() !== '') {
-  //       // Save the current progress data including the name
-  //       saveRegistrationProgress('Hometown', {hometown});
-  //     }
-  //     // Navigate to the next screen
-  //     navigation.navigate('Photos');
-  //   };
+ useEffect(() => {
+    if(signUpForm?.location ){
+      setHometown(signUpForm?.location);
+    }
+  }, []);
+
+
+  const handleNext = () => {
+    if (hometown.trim() !== "" ) {
+      setSignUpForm({...signUpForm, location: hometown})
+      // Navigate to the next screen
+      navigation.navigate("Photo");
+    }else{
+      // apply check
+    }
+  };
+
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ marginTop: 30, marginHorizontal: 20 }}>
@@ -60,7 +63,7 @@ const HomeTownScreen = ({ navigation }) => {
           style={{
             fontSize: 25,
             fontWeight: "bold",
-            fontFamily: "GeezaPro-Bold",
+            
             marginTop: 15,
           }}
         >
@@ -68,7 +71,7 @@ const HomeTownScreen = ({ navigation }) => {
         </Text>
 
         <TextInput
-          value={hometown}
+          value={hometown? hometown:null}
           onChangeText={(text) => setHometown(text)}
           autoFocus={true}
           style={{
@@ -79,14 +82,14 @@ const HomeTownScreen = ({ navigation }) => {
             borderBottomColor: "black",
             borderBottomWidth: 1,
             paddingBottom: 10,
-            fontFamily: "GeezaPro-Bold",
+            
           }}
           placeholder="HomeTown"
           placeholderTextColor={"#BEBEBE"}
         />
 
         <TouchableOpacity
-          onPress={() => navigation.navigate("Photo")}
+          onPress={handleNext}
           activeOpacity={0.8}
           style={{ marginTop: 30, marginLeft: "auto" }}
         >
