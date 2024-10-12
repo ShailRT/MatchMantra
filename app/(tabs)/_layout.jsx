@@ -16,7 +16,7 @@ const TabIcon = ({ icon, color, name, focused }) => {
         source={icon}
         resizeMode="contain"
         tintColor={color}
-        className="w-7 h-7"
+        className="w-6 h-6"
       />
     </View>
   );
@@ -34,8 +34,8 @@ const TabsLayout = () => {
             backgroundColor: "#1a1a1a",
             borderTopWidth: 1,
             borderTopColor: "#1a1a1a",
-            height: 84,
-            paddingBottom: 20,
+            height: 60,
+            // paddingBottom: 0,
           },
         }}
       >
@@ -50,6 +50,7 @@ const TabsLayout = () => {
                 color={color}
                 name="Hinge"
                 focused={focused}
+                size={10}
               />
             ),
           }}
@@ -100,7 +101,7 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="account"
+          name="(account)"
           options={{
             title: "Account",
             headerShown: false,

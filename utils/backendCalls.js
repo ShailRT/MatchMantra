@@ -22,7 +22,10 @@ export const login = async (values) => {
       await AsyncStorage.setItem("auth_token", response?.data?.token);
 
       if (response?.data?.user) {
-        await AsyncStorage.setItem("auth_user", `${response?.data?.user}`);
+        await AsyncStorage.setItem(
+          "auth_user",
+          JSON.stringify(response?.data?.user)
+        );
       }
 
       return {
