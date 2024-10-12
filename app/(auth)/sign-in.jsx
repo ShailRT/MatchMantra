@@ -1,4 +1,4 @@
-import { Alert, ScrollView, Text, StyleSheet } from "react-native";
+import { Alert, ScrollView, Text, StyleSheet, View, Image } from "react-native";
 import React, { useContext, useState } from "react";
 import { router } from "expo-router";
 import Input from "../../components/Input";
@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   button: {
+    backgroundColor: "#205B5A",
     marginVertical: 20,
   },
   footerText: {
@@ -51,7 +52,7 @@ const SignIn = () => {
       return;
     }
 
-    values.email= values.email.toLowerCase();
+    values.email = values.email.toLowerCase();
     try {
       const token = await login(values);
       if (token) {
@@ -68,13 +69,47 @@ const SignIn = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+      <View style={{ alignItems: "center" }}>
+        <View
+          style={{
+            height: 200,
+            backgroundColor: "#205B5A",
+            width: "120%",
+            borderBottomLeftRadius: 160,
+            borderBottomRightRadius: 160,
+          }}
+        >
+          <View
+            style={{
+              alignItems: "center",
+            }}
+          >
+            <Image
+              style={{ width: 250, height: 200, resizeMode: "contain" }}
+              source={require("../../assets/images/shaadimantraa.png")}
+            />
+          </View>
+          {/* <Text
+          style={{
+            marginTop: 20,
+            textAlign: "center",
+            fontSize: 23,
+            fontFamily: "GeezaPro-Bold",
+            color: "white",
+          }}
+        >
+          Shaadi Mantraa
+        </Text> */}
+        </View>
+      </View>
       <ScrollView style={styles.container}>
         <Input
           value={values.email}
           onChangeText={(v) => onChange("email", v)}
           label="E-mail"
           placeholder="example@gmail.com"
+          labelStyle={{ color: "black" }}
         />
         <Input
           value={values.password}

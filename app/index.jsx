@@ -7,7 +7,7 @@ export default function App() {
   const { user } = useContext(UserContext);
 
   if (user?.token) {
-    return <Redirect href="feed" />
+    return <Redirect href="feed" />;
   }
 
   return (
@@ -21,15 +21,12 @@ export default function App() {
         <Text>Home</Text>
       </Link>
 
-      <Link
-        href="StackNavigator"
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
+      <Link href="StackNavigator">
         <Text>Sign Up</Text>
       </Link>
+      <Link href="/AccountSetting">
+        <Text>AccountSetting</Text>
+      </Link>
     </View>
-
   );
 }

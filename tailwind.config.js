@@ -4,7 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        primaryweb: "#F5A2B0",
         primary: "#161622",
+
+        secondaryweb: "#43C1BF",
         secondary: {
           DEFAULT: "#f1f1f1",
         },
@@ -16,6 +19,10 @@ module.exports = {
         gray: {
           100: "#CDCDE0",
         },
+      },
+      backgroundImage: {
+        "custom-radial": "radial-gradient(circle, #43C1BF 60%, #205B5A 100%)",
+        "primary-radial": "radial-gradient(circle, #F5A2B0 60%, #D70A5F 100%)",
       },
       fontFamily: {
         pthin: ["Poppins-Thin", "sans-serif"],
