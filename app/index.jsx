@@ -21,13 +21,11 @@ export default function App() {
         <Text>Home</Text>
       </Link>
 
-      <Link
-        href="StackNavigator"
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
+      <Link href="StackNavigator">
         <Text>Sign Up</Text>
+      </Link>
+      <Link href="/AccountSetting">
+        <Text>AccountSetting</Text>
       </Link>
     </View>
   );
