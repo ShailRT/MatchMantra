@@ -130,8 +130,8 @@ const feed = () => {
                 <PromptCard prompt={item.prompt} />
               ) : (
                 <>
-                  <ImageCard image={item.image} />
-                  <FeedInfo />
+                  <ImageCard image={item.image} profile={profile} index={item.id} />
+                  {/* <FeedInfo /> */}
                 </>
               );
             }}
