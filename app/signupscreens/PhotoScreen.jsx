@@ -15,8 +15,8 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import { SignUpContext } from "../_layout";
 import * as ImagePicker from 'expo-image-picker';
-import { setProfileImage } from "../../utils/backendCalls";
-import { createDataForImage } from "../../utils/payloadUtils";
+import { removeProfileImage, setProfileImage } from "../../utils/backendCalls";
+import { createDataForImage, createDataForImageRemove } from "../../utils/payloadUtils";
 
 const PhotoScreen = ({ navigation }) => {
   const { signUpForm, setSignUpForm } = useContext(SignUpContext);
@@ -60,12 +60,12 @@ const PhotoScreen = ({ navigation }) => {
     const index = imageUrls.findIndex((url) => url === "");
     if (index !== -1) {
       try{
-        const formData= createDataForImage(photo, index);
-        await setProfileImage(formData);
         const updatedUrls = [...imageUrls];
         updatedUrls[index] = photo;
         setImageUrls(updatedUrls);
         setPhoto("");
+        const formData= createDataForImage(photo, index);
+        await setProfileImage(formData);
       }catch(error){
         console.log("error inside handleAddImage",error);
       }
@@ -81,7 +81,7 @@ const PhotoScreen = ({ navigation }) => {
   }, []);
 
   useEffect(()=>{
-    if(photo!=null){
+    if(photo!=null && photo!=""){
       handleAddImage();
 
     }
@@ -93,20 +93,26 @@ const PhotoScreen = ({ navigation }) => {
     if (imageUrls.length>0) {
       setSignUpForm({...signUpForm, profile_pictures: imageUrls })
       // Navigate to the next screen
-      navigation.navigate("Prompt");
+      navigation.navigate("PreFinal");
     }else{
       // apply check
     }
   };
 
 
-  const removeImage=(index)=>{
+  const removeImage=async (index)=>{
     console.log("clicked remove image");
-    if (index !== -1) {
-      const updatedUrls = [...imageUrls];
-      updatedUrls[index] = "";
-      setImageUrls(updatedUrls);
-      setPhoto("");
+    if (index !== -1&& imageUrls[index]!= "" ) {
+      try{
+        const updatedUrls = [...imageUrls];
+        updatedUrls[index] = ""; 
+        setImageUrls(updatedUrls);
+        setPhoto("");
+        const data = createDataForImageRemove(index);
+        await removeProfileImage(data);
+      }catch(error){
+        console.log("error in remove image ", error);
+      }
     }
     
   }

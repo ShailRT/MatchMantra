@@ -14,15 +14,22 @@ export const generateRegisterPayload =  (values) => {
 export const createDataForImage =  (uri,index) => {
      const formdata= new FormData();
      formdata.append('photo', {
-        value: uri,
+        uri: uri,
         type: 'image/jpeg',
+        name: 'profile',
       });
 
-      formdata.append('index', {
-        value: index,
-        type: 'text',
-      });
+     formdata.append('index',index);
       
       console.log("formdata : ", formdata);
      return formdata;
  }
+
+
+ export const createDataForImageRemove =  (index) => {
+    const formdata= new FormData();
+    formdata.append('index',index);
+     
+     console.log("formdata : ", formdata);
+    return formdata;
+}

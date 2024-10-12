@@ -115,14 +115,16 @@ export const getEvents = async () => {
   }
 };
 
-export const setProfileImage = async (data,token) => {
+export const setProfileImage = async (data) => {
   try {
+    const token = await AsyncStorage.getItem("auth_token");
+    console.log("token in setProfile",token);
     const response = await request({
-      fullUrl: "http://www.shaadimantraa.com/profile/update-photo",
+      fullUrl: "http://www.shaadimantraa.com/api/profile/photo/update",
       method: "post",
       data: data,
       headers: {
-         ContentType: 'multipart/form-data',
+        'Content-Type': 'multipart/form-data',
          Authorization: `Bearer ${token}` ,
       },
     });
@@ -135,10 +137,15 @@ export const setProfileImage = async (data,token) => {
 
 export const removeProfileImage = async (data) => {
   try {
+    const token = await AsyncStorage.getItem("auth_token");
     const response = await request({
-      fullUrl: "http://www.shaadimantraa.com/profile/remove-photo",
+      fullUrl: "http://www.shaadimantraa.com/api/profile/photo/remove",
       method: "post",
-      data: data
+      data: data,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+         Authorization: `Bearer ${token}` ,
+      },
     });
     console.log("remove Profile response ", response.data);
     return response.data;
