@@ -6,14 +6,62 @@ import {
   ScrollView,
   StyleSheet,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link, router, useLocalSearchParams } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ChevronRightIcon } from "../../../constants/icons";
 import WebView from "react-native-webview";
+import axios from "axios";
+import RazorpayCheckout from "react-native-razorpay";
+// import RazorpayCheckout from "react-native-razorpay";
 
 const eventDetails = () => {
   const { id } = useLocalSearchParams();
+  const [razorResponse, setRazorResponse] = useState({});
+  useEffect(() => {
+    const getRazorResponse = async () => {
+      try {
+        const response = await axios.post(
+          "http://shaadimantraa.com/create-checkout-session",
+          {
+            event_id: 9,
+          }
+        );
+        setRazorResponse(response.data);
+        console.log("response ", response.data);
+      } catch (error) {
+        console.log("axios error events", error);
+      }
+    };
+    getRazorResponse();
+  }, []);
+
+  const handlePayment = () => {
+    var options = {
+      key: razorResponse.key,
+      key_id: razorResponse.key_id,
+      amount: razorResponse.amount,
+      currency: razorResponse.currency,
+      name: razorResponse.name,
+      description: razorResponse.description,
+      order_id: razorResponse.order_id,
+      prefill: {
+        name: razorResponse.name,
+        email: razorResponse.email,
+        contact: razorResponse.contact,
+      },
+      theme: { color: "#F37254" },
+    };
+    RazorpayCheckout.open(options)
+      .then((data) => {
+        // handle success
+        alert(`Success: ${data.razorpay_payment_id}`);
+      })
+      .catch((error) => {
+        // handle failure
+        alert(`Error: ${error.code} | ${error.description}`);
+      });
+  };
   return (
     <SafeAreaView className="h-screen p-0 m-0">
       <TouchableOpacity onPress={() => router.back()}>
@@ -51,17 +99,6 @@ const eventDetails = () => {
           </View>
         </View>
         <View className="px-5">
-          <WebView
-            originWhitelist={["*"]}
-            source={{
-              html: `<html>
-          <body>
-          <h1>Hi</h1>
-          </body>
-      </html>`,
-            }}
-            // style={styles.map}
-          />
           <View className="mt-3 px-2 py-3">
             <Text className="font-pregular text-base">
               BookMyShow, the biggest online ticketing platform in India, spans
@@ -86,7 +123,7 @@ const eventDetails = () => {
           </View>
         </View>
       </ScrollView>
-      <View className="flex-row w-full px-5 pt-3 pb-1 bottom-14 bg-secondary">
+      <View className="flex-row w-full px-5 pt-3 pb-1 bottom-20 bg-secondary">
         <TouchableOpacity className="w-44">
           <View className="px-4 h-12 items-center justify-center mr-2 rounded-full border-gray-100 border text-black-100">
             <Text className="font-pmedium">Buy Tickets</Text>
