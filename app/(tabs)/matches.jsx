@@ -11,6 +11,7 @@ import { ChevronRightIcon, StarIcon, SearchIcon } from "../../constants/icons";
 import PreferenceBar from "../../components/PreferenceBar";
 import { useState } from "react";
 import LikeProfile from "../../components/LikeProfile";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Matches = () => {
   const prefrenceList = [
@@ -24,7 +25,7 @@ const Matches = () => {
   const [activePrefrence, setActivePrefrence] = useState(prefrenceList[1]);
 
   return (
-    <SafeAreaView className="">
+    <SafeAreaView>
       <View className="mt-16">
         <View className="px-6">
           <View className="justify-between items-start flex-row">
@@ -33,11 +34,7 @@ const Matches = () => {
             </View>
             <View className="flex-row">
               <View className="mt-1.5">
-                <Image
-                  source={StarIcon}
-                  className="w-5 h-5"
-                  resizeMode="contain"
-                />
+                <MaterialCommunityIcons name="star-outline" size={30} />
               </View>
             </View>
           </View>

@@ -17,7 +17,6 @@ import { useContext } from "react";
 import { UserContext } from "../_layout";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-
 const account = () => {
   const { user, setUser } = useContext(UserContext);
 
@@ -49,13 +48,12 @@ const account = () => {
           />
         </View>
         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
+          <MaterialCommunityIcons name="tune-vertical" size={27} />
           <TouchableOpacity onPress={logout}>
             <View>
-              <AntDesign name="infocirlce" size={24} color="black" />
+              <MaterialCommunityIcons name="logout" size={25} />
             </View>
           </TouchableOpacity>
-
-          <AntDesign name="setting" size={24} color="black" />
         </View>
       </View>
       <View

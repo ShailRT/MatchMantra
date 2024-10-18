@@ -8,6 +8,7 @@ import {
   StarIcon,
   MessageIcon,
 } from "../../constants/icons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
@@ -60,11 +61,10 @@ const TabsLayout = () => {
             title: "(events)",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={StarIcon}
+              <MaterialCommunityIcons
+                name="calendar-search"
+                size={28}
                 color={color}
-                name="events"
-                focused={focused}
               />
             ),
           }}
@@ -75,11 +75,10 @@ const TabsLayout = () => {
             title: "Matches",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={HeartIcon}
+              <MaterialCommunityIcons
+                name="heart-outline"
+                size={30}
                 color={color}
-                name="Matches"
-                focused={focused}
               />
             ),
           }}
@@ -90,11 +89,10 @@ const TabsLayout = () => {
             title: "Messages",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={MessageIcon}
+              <MaterialCommunityIcons
+                name="message-outline"
+                size={26}
                 color={color}
-                focused={focused}
-                name="Messages"
               />
             ),
           }}
@@ -105,12 +103,7 @@ const TabsLayout = () => {
             title: "Account",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={PersonIcon}
-                color={color}
-                name="Account"
-                focused={focused}
-              />
+              <MaterialCommunityIcons name="account" size={33} color={color} />
             ),
           }}
         />
