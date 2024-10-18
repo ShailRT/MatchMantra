@@ -56,11 +56,6 @@ const accountSettings = () => {
     <SafeAreaView style={{ flex: 1, padding: 20, backgroundColor: "#fff" }}>
       <TouchableOpacity onPress={() => router.back()}>
         <View className="flex-row items-center">
-          {/* <Image
-            source={ChevronRightIcon}
-            className="w-10 h-10 scale-x-[-1]"
-            resizeMode="contain"
-          /> */}
           <MaterialIcons name="arrow-back-ios-new" size={22} color="black" />
           <Text className="font-pregular text-base ml-1">Preference</Text>
         </View>

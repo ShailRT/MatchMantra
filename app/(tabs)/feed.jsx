@@ -93,7 +93,7 @@ const feed = () => {
   const [activePrefrence, setActivePrefrence] = useState(prefrenceList[1]);
 
   return (
-    <SafeAreaView>
+    <SafeAreaView className="pb-14">
       {!user?.token ? (
         <NeedSignIn />
       ) : (
@@ -130,7 +130,11 @@ const feed = () => {
                 <PromptCard prompt={item.prompt} />
               ) : (
                 <>
-                  <ImageCard image={item.image} profile={profile} index={item.id} />
+                  <ImageCard
+                    image={item.image}
+                    profile={profile}
+                    index={item.id}
+                  />
                   {/* <FeedInfo /> */}
                 </>
               );

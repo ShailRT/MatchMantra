@@ -78,7 +78,7 @@ const eventDetails = () => {
             resizeMode="cover"
           />
           <View className="px-5 pt-3">
-            <Text className="font-psemibold text-xl">Garba Night</Text>
+            <Text className="font-psemibold text-xl">{id}</Text>
             <Text className="font-regular text-base">14 Aug 2024 onwards</Text>
             <View className="flex-row mt-2">
               <TouchableOpacity>
@@ -119,7 +119,7 @@ const eventDetails = () => {
           </View>
         </View>
       </ScrollView>
-      <View className="flex-row w-full px-5 pt-3 pb-1 bottom-24 bg-secondary">
+      <View className="flex-row w-full px-5 pt-3 pb-1 bottom-4 bg-secondary justify-center">
         <TouchableOpacity className="w-44" onPress={handlePayment}>
           <View className="px-4 h-12 items-center justify-center mr-2 rounded-full border-gray-100 border text-black-100">
             <Text className="font-pmedium">Buy Tickets</Text>
