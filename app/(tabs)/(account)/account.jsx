@@ -83,7 +83,7 @@ const account = () => {
               alignSelf: "center",
             }}
             source={{
-              uri: "https://m.media-amazon.com/images/I/61KpZVl3bfL._AC_UF1000,1000_QL80_.jpg",
+              uri: "https://static.vecteezy.com/system/resources/thumbnails/020/765/399/small_2x/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg",
             }}
           />
 

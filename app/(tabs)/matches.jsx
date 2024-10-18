@@ -24,7 +24,7 @@ const Matches = () => {
   const [activePrefrence, setActivePrefrence] = useState(prefrenceList[1]);
 
   return (
-    <SafeAreaView className="">
+    <SafeAreaView className="pb-14">
       <View className="mt-16">
         <View className="px-6">
           <View className="justify-between items-start flex-row">

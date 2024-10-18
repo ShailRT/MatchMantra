@@ -65,7 +65,7 @@ const SignIn = () => {
   };
 
   const onSignUp = () => {
-    router.push("/sign-up");
+    router.push("/StackNavigator");
   };
 
   return (
@@ -125,6 +125,16 @@ const SignIn = () => {
           <Text onPress={onSignUp} style={styles.footerLink}>
             {" "}
             Sign Up
+          </Text>
+        </Text>
+        <Text style={styles.footerText}>
+          Sign in as Guest?
+          <Text
+            onPress={() => router.replace("events")}
+            style={styles.footerLink}
+          >
+            {" "}
+            Sign In
           </Text>
         </Text>
       </ScrollView>
