@@ -4,7 +4,9 @@ import { router } from "expo-router";
 
 const MessageItem = ({ image, name }) => {
   return (
-    <TouchableOpacity onPress={() => router.push("./Rahul")}>
+    <TouchableOpacity
+      onPress={() => router.push("../../chat", { relativeToDirectory: true })}
+    >
       <View className="justify-center items-center flex-row flex-1 border-b py-2 border-bblack px-2">
         <View className="w-[70px] h-[70px] rounded-lg boreder border-secondary justify-center items-center p-0.5">
           <Image

@@ -121,14 +121,14 @@ const SignIn = () => {
         />
         <Button onPress={handleSignIn} style={styles.button} title="Sign In" />
 
-        <Text style={styles.footerText}>
+        <Text className="text-center font-pregular text-xs">
           Don't have an account?
           <Text onPress={onSignUp} style={styles.footerLink}>
             {" "}
             Sign Up
           </Text>
         </Text>
-        <Text style={styles.footerText}>
+        <Text className="text-center font-pregular text-xs">
           Sign in as Guest?
           <Text
             onPress={() => router.replace("events")}

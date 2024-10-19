@@ -8,6 +8,8 @@ import {
   StarIcon,
   MessageIcon,
 } from "../../constants/icons";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const TabIcon = ({ icon, color, name, focused }) => {
@@ -30,11 +32,11 @@ const TabsLayout = () => {
         screenOptions={{
           tabBarShowLabel: false,
           tabBarActiveTintColor: "#fff",
-          tabBarInactiveTintColor: "#757575",
+          tabBarInactiveTintColor: "#111",
           tabBarStyle: {
-            backgroundColor: "#1a1a1a",
+            backgroundColor: "#a3282b",
             borderTopWidth: 1,
-            borderTopColor: "#1a1a1a",
+            borderTopColor: "#a3282b",
             height: 60,
             // paddingBottom: 0,
           },
@@ -46,13 +48,7 @@ const TabsLayout = () => {
             title: "Feed",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={HingeIcon}
-                color={color}
-                name="Hinge"
-                focused={focused}
-                size={10}
-              />
+              <Ionicons name="rose-outline" size={27} color={color} />
             ),
           }}
         />
@@ -62,11 +58,7 @@ const TabsLayout = () => {
             title: "(events)",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <MaterialCommunityIcons
-                name="calendar-search"
-                size={28}
-                color={color}
-              />
+              <Ionicons name="ticket-outline" size={27} color={color} />
             ),
           }}
         />
@@ -104,7 +96,7 @@ const TabsLayout = () => {
             title: "Account",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <MaterialCommunityIcons name="account" size={33} color={color} />
+              <AntDesign name="user" size={26} color={color} />
             ),
           }}
         />

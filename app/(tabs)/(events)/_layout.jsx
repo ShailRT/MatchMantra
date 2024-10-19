@@ -7,7 +7,7 @@ const EventLayout = () => {
     <Stack>
       <Stack.Screen name="events" options={{ headerShown: false }} />
       <Stack.Screen
-        name="[id]"
+        name="eventDetails"
         options={{
           headerShown: false,
         }}

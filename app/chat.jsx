@@ -46,7 +46,7 @@ const chat = () => {
           paddingVertical: 10,
           borderTopWidth: 1,
           borderTopColor: "#dddddd",
-          marginBottom: 30,
+          // marginBottom: 30,
         }}
       >
         <Entypo
@@ -65,22 +65,10 @@ const chat = () => {
             borderColor: "#dddddd",
             borderRadius: 20,
             paddingHorizontal: 10,
+            marginRight: 7,
           }}
           placeholder="Type your message..."
         />
-
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            gap: 8,
-            marginHorizontal: 8,
-          }}
-        >
-          <Entypo name="camera" size={24} color="gray" />
-
-          <Feather name="mic" size={24} color="gray" />
-        </View>
 
         {
           <Pressable

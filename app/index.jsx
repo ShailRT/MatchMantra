@@ -1,7 +1,8 @@
 import { Text, View } from "react-native";
 import { Link, Redirect, router } from "expo-router";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "./_layout";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function App() {
   const { user } = useContext(UserContext);

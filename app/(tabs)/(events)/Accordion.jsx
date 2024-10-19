@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-const Accordion = ({ title, children, isInitiallyOpen }) => {
+const Accordion = ({ title, children, isInitiallyOpen, classProperties }) => {
   const [isOpen, setIsOpen] = useState(isInitiallyOpen); // Pass initial state
   const animation = useRef(new Animated.Value(isInitiallyOpen ? 1 : 0)).current; // Animated value to control height
 
@@ -29,7 +29,7 @@ const Accordion = ({ title, children, isInitiallyOpen }) => {
     <View style={styles.accordionContainer}>
       <TouchableOpacity onPress={toggleAccordion} style={styles.header}>
         {/* Title and Icon */}
-        <Text style={styles.headerText}>{title}</Text>
+        <Text className="font-psemibold text-base">{title}</Text>
         <MaterialCommunityIcons
           name={isOpen ? "chevron-up" : "chevron-down"}
           size={24}
@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderWidth: 1,
     borderColor: "#ccc",
-    borderRadius: 5,
+    borderRadius: 15,
     overflow: "hidden",
   },
   header: {
