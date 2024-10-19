@@ -10,6 +10,7 @@ import {
 } from "../../constants/icons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const TabIcon = ({ icon, color, name, focused }) => {
@@ -96,7 +97,7 @@ const TabsLayout = () => {
             title: "Account",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <AntDesign name="user" size={26} color={color} />
+              <FontAwesome name="user-o" size={25} color={color} />
             ),
           }}
         />
