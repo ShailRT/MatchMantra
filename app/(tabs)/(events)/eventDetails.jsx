@@ -13,42 +13,42 @@ import { ChevronRightIcon } from "../../../constants/icons";
 import WebView from "react-native-webview";
 import axios from "axios";
 import RazorpayCheckout from "react-native-razorpay";
-// import RazorpayCheckout from "react-native-razorpay";
+import Accordion from "./Accordion";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const eventDetails = () => {
   const { id } = useLocalSearchParams();
   const [razorResponse, setRazorResponse] = useState({});
-  useEffect(() => {
-    const getRazorResponse = async () => {
-      try {
-        const response = await axios.post(
-          "http://shaadimantraa.com/create-checkout-session",
-          {
-            event_id: 9,
-          }
-        );
-        setRazorResponse(response.data);
-        console.log("response ", response.data);
-      } catch (error) {
-        console.log("axios error events", error);
-      }
-    };
-    getRazorResponse();
-  }, []);
+  // useEffect(() => {
+  //   const getRazorResponse = async () => {
+  //     try {
+  //       const response = await axios.post(
+  //         "http://shaadimantraa.com/create-checkout-session",
+  //         {
+  //           event_id: 9,
+  //         }
+  //       );
+  //       setRazorResponse(response.data);
+  //       console.log("response ", response.data);
+  //     } catch (error) {
+  //       console.log("axios error events", error);
+  //     }
+  //   };
+  //   getRazorResponse();
+  // }, []);
 
   const handlePayment = () => {
     var options = {
-      key: razorResponse.key,
-      key_id: razorResponse.key_id,
-      amount: razorResponse.amount,
-      currency: razorResponse.currency,
-      name: razorResponse.name,
-      description: razorResponse.description,
-      order_id: razorResponse.order_id,
+      description: "Credits towards consultation",
+      image: "https://i.imgur.com/3g7nmJC.png",
+      currency: "INR",
+      key: "rzp_test_2BFPuAnuz8ZT1a", // Your api key
+      amount: "5000",
+      name: "foo",
       prefill: {
-        name: razorResponse.name,
-        email: razorResponse.email,
-        contact: razorResponse.contact,
+        email: "void@razorpay.com",
+        contact: "9191919191",
+        name: "Razorpay Software",
       },
       theme: { color: "#F37254" },
     };
@@ -63,15 +63,12 @@ const eventDetails = () => {
       });
   };
   return (
-    <SafeAreaView className="h-screen p-0 m-0">
+    <SafeAreaView className="h-screen pt-3">
       <TouchableOpacity onPress={() => router.back()}>
-        <View className="flex-row items-center">
-          <Image
-            source={ChevronRightIcon}
-            className="w-10 h-10 scale-x-[-1]"
-            resizeMode="contain"
-          />
-          <Text className="font-psemibold text-base">{id}</Text>
+        <View className="flex-row items-center py-3 pl-4">
+          <MaterialIcons name="arrow-back-ios-new" size={22} color="black" />
+
+          <Text className="font-pregular text-base ml-1">{id}</Text>
         </View>
       </TouchableOpacity>
       <ScrollView>
@@ -82,8 +79,10 @@ const eventDetails = () => {
             resizeMode="cover"
           />
           <View className="px-5 pt-3">
-            <Text className="font-psemibold text-xl">Garba Night</Text>
-            <Text className="font-regular text-base">14 Aug 2024 onwards</Text>
+            <Text className="font-psemibold text-xl">{id}</Text>
+            <Text className="font-pregular text-sm text-[">
+              14 Aug 2024 onwards
+            </Text>
             <View className="flex-row mt-2">
               <TouchableOpacity>
                 <View className="px-4 h-8 items-center justify-center mr-2 rounded-full border-gray-100 border text-black-100 bg-blue-400/30">
@@ -98,14 +97,24 @@ const eventDetails = () => {
             </View>
           </View>
         </View>
-        <View className="px-5">
-          <View className="mt-3 px-2 py-3">
+        <ScrollView style={{ padding: 20 }}>
+          <Accordion
+            title="About"
+            isInitiallyOpen={false}
+            classProperties="font-psemibold text-xl"
+          >
             <Text className="font-pregular text-base">
               BookMyShow, the biggest online ticketing platform in India, spans
               five countries and nearly 60 cities. Their business model is a
               standout example—they earn through internet handling or
               convenience fees.
             </Text>
+          </Accordion>
+          <Accordion
+            title="Location"
+            isInitiallyOpen={false}
+            classProperties="font-psemibold text-xl"
+          >
             <View className="w-full h-52 p-0">
               <WebView
                 originWhitelist={["*"]}
@@ -120,11 +129,11 @@ const eventDetails = () => {
                 // style={styles.map}
               />
             </View>
-          </View>
-        </View>
+          </Accordion>
+        </ScrollView>
       </ScrollView>
-      <View className="flex-row w-full px-5 pt-3 pb-1 bottom-20 bg-secondary">
-        <TouchableOpacity className="w-44">
+      <View className="flex-row w-full px-5 pt-3 pb-1 bottom-10 bg-secondary justify-center absolute">
+        <TouchableOpacity className="w-44" onPress={handlePayment}>
           <View className="px-4 h-12 items-center justify-center mr-2 rounded-full border-gray-100 border text-black-100">
             <Text className="font-pmedium">Buy Tickets</Text>
           </View>

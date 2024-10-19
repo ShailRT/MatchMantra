@@ -1,6 +1,6 @@
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
-const LikeProfile = ({ image }) => {
+const LikeProfile = ({ image, name }) => {
   return (
     <View className="flex-col items-center px-4 mb-6">
       <View className="flex-row items-start">
@@ -10,7 +10,7 @@ const LikeProfile = ({ image }) => {
               className="font-psemibold text-xl align-middle"
               numberOfLines={1}
             >
-              Laila
+              {name}
             </Text>
           </View>
         </View>

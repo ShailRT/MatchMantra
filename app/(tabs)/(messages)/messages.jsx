@@ -26,9 +26,30 @@ const Messages = () => {
           </View>
           <FlatList
             className="px-4 h-full mt-2"
-            data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
+            data={[
+              {
+                id: 1,
+                name: "Kevin",
+                image:
+                  "https://christophertoddstudios.com/wp-content/uploads/2022/02/online-dating-KevinBrookim-Onlinedating-82-683x1024.jpg",
+              },
+              {
+                id: 2,
+                image:
+                  "https://www.heysaturday.co/wp-content/uploads/2021/09/Best-Dating-Profile-Photos.jpg",
+                name: "Laila",
+              },
+              {
+                id: 3,
+                name: "Brandy",
+                image:
+                  "https://i.pinimg.com/736x/ae/b4/27/aeb4271447a6f26baa4b95b8766b0242.jpg",
+              },
+            ]}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <MessageItem />}
+            renderItem={({ item }) => (
+              <MessageItem image={item.image} name={item.name} />
+            )}
             scroll
           />
         </>

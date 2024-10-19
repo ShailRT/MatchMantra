@@ -50,11 +50,11 @@ const account = () => {
         <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
           <TouchableOpacity onPress={logout}>
             <View>
-              <MaterialCommunityIcons name="logout" size={24} color="black" />
+              <MaterialCommunityIcons name="logout" size={25} />
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => router.push("./accountSettings")}>
-            <AntDesign name="setting" size={24} color="black" />
+            <MaterialCommunityIcons name="tune-vertical" size={27} />
           </TouchableOpacity>
         </View>
       </View>

@@ -8,6 +8,9 @@ import {
   StarIcon,
   MessageIcon,
 } from "../../constants/icons";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
@@ -29,11 +32,11 @@ const TabsLayout = () => {
         screenOptions={{
           tabBarShowLabel: false,
           tabBarActiveTintColor: "#fff",
-          tabBarInactiveTintColor: "#757575",
+          tabBarInactiveTintColor: "#111",
           tabBarStyle: {
-            backgroundColor: "#1a1a1a",
+            backgroundColor: "#a3282b",
             borderTopWidth: 1,
-            borderTopColor: "#1a1a1a",
+            borderTopColor: "#a3282b",
             height: 60,
             // paddingBottom: 0,
           },
@@ -45,13 +48,7 @@ const TabsLayout = () => {
             title: "Feed",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={HingeIcon}
-                color={color}
-                name="Hinge"
-                focused={focused}
-                size={10}
-              />
+              <Ionicons name="rose-outline" size={27} color={color} />
             ),
           }}
         />
@@ -61,12 +58,7 @@ const TabsLayout = () => {
             title: "(events)",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={StarIcon}
-                color={color}
-                name="events"
-                focused={focused}
-              />
+              <Ionicons name="ticket-outline" size={27} color={color} />
             ),
           }}
         />
@@ -76,11 +68,10 @@ const TabsLayout = () => {
             title: "Matches",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={HeartIcon}
+              <MaterialCommunityIcons
+                name="heart-outline"
+                size={30}
                 color={color}
-                name="Matches"
-                focused={focused}
               />
             ),
           }}
@@ -91,11 +82,10 @@ const TabsLayout = () => {
             title: "Messages",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={MessageIcon}
+              <MaterialCommunityIcons
+                name="message-outline"
+                size={26}
                 color={color}
-                focused={focused}
-                name="Messages"
               />
             ),
           }}
@@ -106,12 +96,7 @@ const TabsLayout = () => {
             title: "Account",
             headerShown: false,
             tabBarIcon: ({ color, focused }) => (
-              <TabIcon
-                icon={PersonIcon}
-                color={color}
-                name="Account"
-                focused={focused}
-              />
+              <AntDesign name="user" size={26} color={color} />
             ),
           }}
         />

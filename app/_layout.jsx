@@ -69,6 +69,7 @@ const RootLayout = () => {
             options={{ headerShown: false }}
           />
           <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="chat" options={{ headerShown: false }} />
         </Stack>
       </SignUpContext.Provider>
     </UserContext.Provider>
