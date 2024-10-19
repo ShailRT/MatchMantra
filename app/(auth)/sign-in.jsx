@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   button: {
-    backgroundColor: "#205B5A",
+    backgroundColor: "#a3282b",
     marginVertical: 20,
   },
   footerText: {
@@ -73,8 +73,8 @@ const SignIn = () => {
       <View style={{ alignItems: "center" }}>
         <View
           style={{
-            height: 200,
-            backgroundColor: "#205B5A",
+            height: 220,
+            backgroundColor: "#a3282b",
             width: "120%",
             borderBottomLeftRadius: 160,
             borderBottomRightRadius: 160,
@@ -83,11 +83,12 @@ const SignIn = () => {
           <View
             style={{
               alignItems: "center",
+              paddingTop: 0,
             }}
           >
             <Image
-              style={{ width: 250, height: 200, resizeMode: "contain" }}
-              source={require("../../assets/images/shaadimantraa.png")}
+              style={{ marginTop: -15, height: 250, resizeMode: "contain" }}
+              source={require("../../assets/images/logosm.png")}
             />
           </View>
           {/* <Text

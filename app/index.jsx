@@ -26,7 +26,7 @@ export default function App() {
       <Link href="StackNavigator">
         <Text>Sign Up</Text>
       </Link>
-      <Link href="/AccountSetting">
+      <Link href="/ServiceOptions">
         <Text>AccountSetting</Text>
       </Link>
     </View>

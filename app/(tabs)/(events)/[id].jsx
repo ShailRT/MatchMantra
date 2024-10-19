@@ -13,6 +13,7 @@ import { ChevronRightIcon } from "../../../constants/icons";
 import WebView from "react-native-webview";
 import axios from "axios";
 import RazorpayCheckout from "react-native-razorpay";
+import Accordion from "./Accordion";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const eventDetails = () => {
@@ -94,14 +95,16 @@ const eventDetails = () => {
             </View>
           </View>
         </View>
-        <View className="px-5">
-          <View className="mt-3 px-2 py-3">
+        <ScrollView style={{ padding: 20 }}>
+          <Accordion title="About" isInitiallyOpen={false}>
             <Text className="font-pregular text-base">
               BookMyShow, the biggest online ticketing platform in India, spans
               five countries and nearly 60 cities. Their business model is a
               standout example—they earn through internet handling or
               convenience fees.
             </Text>
+          </Accordion>
+          <Accordion title="Location" isInitiallyOpen={false}>
             <View className="w-full h-52 p-0">
               <WebView
                 originWhitelist={["*"]}
@@ -116,8 +119,8 @@ const eventDetails = () => {
                 // style={styles.map}
               />
             </View>
-          </View>
-        </View>
+          </Accordion>
+        </ScrollView>
       </ScrollView>
       <View className="flex-row w-full px-5 pt-3 pb-1 bottom-4 bg-secondary justify-center">
         <TouchableOpacity className="w-44" onPress={handlePayment}>
