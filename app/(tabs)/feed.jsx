@@ -73,8 +73,8 @@ const feed = () => {
         user_id: profile?.id,
       };
       console.log("data: " + data);
-      skipProfile(data, user.token);
-      fetchProfile();
+      await skipProfile(data, user.token);
+      await fetchProfile();
     } catch (error) {
       console.log("Error while calling skip api " + error);
     }
@@ -89,8 +89,8 @@ const feed = () => {
         user_id: profile?.id,
       };
       console.log("data: " + data);
-      likeProfile(data, user.token);
-      fetchProfile();
+      await likeProfile(data, user.token);
+      await fetchProfile();
     } catch (error) {
       console.log("Error while calling skip api " + error);
     }
