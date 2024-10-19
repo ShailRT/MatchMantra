@@ -6,16 +6,17 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  Alert,
 } from "react-native";
 import React, { useState, useEffect,useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import { SignUpContext } from "../_layout";
+import ErrorText from "../../components/ErrorText";
 
 const EmailScreen = ({ navigation }) => {
   const {signUpForm,setSignUpForm} = useContext(SignUpContext)
   const [email, setEmail] = useState("");
+  const [error,setError]= useState("");
   
   useEffect(() => {
     if(signUpForm?.email ){
@@ -25,14 +26,23 @@ const EmailScreen = ({ navigation }) => {
   }, []);
 
   const handleNext = () => {
-    if (email.trim() !== "" ) {
+    if(validateEmail()){
       setSignUpForm({...signUpForm, email: email.toLowerCase()})
       // Navigate to the next screen
       navigation.navigate("Password");
-    }else{
-      // apply check
     }
   };
+
+  const validateEmail = ()=>{
+    if (email.trim() == "") {
+      setError( 'Email is required');
+      return false;
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      setError( 'Email address is invalid');
+      return false;
+    }
+    return true;
+  }
 
 
   return (
@@ -93,6 +103,7 @@ const EmailScreen = ({ navigation }) => {
           placeholder="Enter your email"
           placeholderTextColor={"#BEBEBE"}
         />
+        {error && <ErrorText message={error}/>}
         <Text style={{ color: "gray", fontSize: 15, marginTop: 7 }}>
           Note: You will be asked to verify your email
         </Text>

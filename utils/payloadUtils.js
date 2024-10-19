@@ -5,7 +5,7 @@ export const generateRegisterPayload =  (values) => {
         email: values.email,
         dob: values.dob,
         password: values.password,
-        password_confirmation: values.password
+        password_confirmation: values.confirmPassword
     }
     console.log("data  ", data)
     return data;
