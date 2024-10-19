@@ -10,13 +10,14 @@ import {
 import React, { useState, useEffect , useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
-import AntDesign from "react-native-vector-icons/AntDesign";
 import { SignUpContext } from "../_layout";
+import ErrorText from "../../components/ErrorText";
 
 const GenderScreen = ({ navigation }) => {
   const  { signUpForm, setSignUpForm } = useContext(SignUpContext);
  
   const [gender, setGender] = useState("");
+  const [error, setError]= useState("");
 
   useEffect(() => {
     if(signUpForm?.gender ){
@@ -28,10 +29,10 @@ const GenderScreen = ({ navigation }) => {
   const handleNext = () => {
     if (gender.trim() !== "" ) {
       setSignUpForm({...signUpForm, gender: gender})
-      // Navigate to the next screen
+      setError("");
       navigation.navigate("HomeT");
     }else{
-      // apply check
+      setError("Select a Gender!")
     }
   };
 
@@ -139,8 +140,7 @@ const GenderScreen = ({ navigation }) => {
             gap: 8,
           }}
         >
-          {/* <AntDesign name="checksquare" size={26} color="#581845" /> */}
-          {/* <Text style={{ fontSize: 15 }}>Visible on profile</Text> */}
+          {error && <ErrorText message={error} /> }
         </View>
         <TouchableOpacity
           onPress={handleNext}

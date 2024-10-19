@@ -3,7 +3,6 @@ import {
   Text,
   View,
   SafeAreaView,
-  Pressable,
   TouchableOpacity,
   Image,
   TextInput,
@@ -12,10 +11,12 @@ import React, { useState, useEffect,useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { SignUpContext } from "../_layout";
+import ErrorText from "../../components/ErrorText";
 
 const HomeTownScreen = ({ navigation }) => {
   const { signUpForm, setSignUpForm } = useContext(SignUpContext);
   const [hometown, setHometown] = useState("");
+  const [error , setError] = useState("");
 
  useEffect(() => {
     if(signUpForm?.location ){
@@ -27,10 +28,10 @@ const HomeTownScreen = ({ navigation }) => {
   const handleNext = () => {
     if (hometown.trim() !== "" ) {
       setSignUpForm({...signUpForm, location: hometown})
-      // Navigate to the next screen
+      setError("")
       navigation.navigate("Photo");
     }else{
-      // apply check
+      setError("This field is required!")
     }
   };
 
@@ -87,6 +88,7 @@ const HomeTownScreen = ({ navigation }) => {
           placeholder="HomeTown"
           placeholderTextColor={"#BEBEBE"}
         />
+        {error && <ErrorText message={error} />}
 
         <TouchableOpacity
           onPress={handleNext}
@@ -107,4 +109,3 @@ const HomeTownScreen = ({ navigation }) => {
 
 export default HomeTownScreen;
 
-const styles = StyleSheet.create({});

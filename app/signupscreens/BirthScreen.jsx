@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
@@ -12,7 +11,8 @@ import React, { useRef, useState, useEffect, useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { SignUpContext } from "../_layout";
 import { generateRegisterPayload } from "../../utils/payloadUtils";
-import { login, signup } from "../../utils/backendCalls";
+import { signup } from "../../utils/backendCalls";
+import ErrorText from "../../components/ErrorText";
 
 const BirthScreen = ({ navigation }) => {
   const { signUpForm, setSignUpForm } = useContext(SignUpContext);
@@ -22,6 +22,8 @@ const BirthScreen = ({ navigation }) => {
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
+
+  const [error,setError]= useState("");
 
   useEffect(() => {
     if(signUpForm?.dob){
@@ -58,26 +60,40 @@ const BirthScreen = ({ navigation }) => {
       // Construct the date string in the desired format
       const dateOfBirth = `${year}-${month}-${day}`;
 
-      // Save the current progress data including the date of birth
-      setSignUpForm({...signUpForm, dob: dateOfBirth})
+      if(validateDate(dateOfBirth)){
+        setSignUpForm({...signUpForm, dob: dateOfBirth});
+        const data= generateRegisterPayload({...signUpForm, dob: dateOfBirth});
+        try{
+              const token= await signup(data);
+              if(token){
+                navigation.navigate('Gender'); // Or navigate to the appropriate screen
+              }else{
+                setError("Something went wrong, please wait for sometime");
+              }
 
-      const data= generateRegisterPayload({...signUpForm, dob: dateOfBirth});
-      // async call for registering 
-      
-      try{
-        const token= await signup(data);
-        if(token){
-          navigation.navigate('Gender'); // Or navigate to the appropriate screen
-        }
-      }catch(error){
-        console.log("error while registering :",error);
+            }catch(error){
+              console.log("error while registering :",error);
+            }
+          setError("");
       }
-
-      // Navigate to the next screen
-    } else {
-      // apply check
     }
   };
+
+  const validateDate = (dateOfBirth)=>{
+    const date= new Date(dateOfBirth);
+    if ( !(date.getFullYear() == year && date.getMonth() == month-1 && date.getDate() == day)){
+      setError("Invalid Date");
+      return false;
+    }
+    
+    const today = new Date();
+    if( today.getFullYear() - date.getFullYear() < 25){
+      setError("Minimum age should be 25! ");
+      return false;
+    }
+    return true;
+
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -178,6 +194,15 @@ const BirthScreen = ({ navigation }) => {
             onChangeText={handleYearChange}
             value={year}
           />
+        </View>
+        <View style={{
+            flexDirection: "row",
+            gap: 10,
+            marginTop: 30,
+            justifyContent: "center",
+          }}>
+
+          {error && <ErrorText message={error}/> }
         </View>
         <TouchableOpacity
           onPress={handleNext}

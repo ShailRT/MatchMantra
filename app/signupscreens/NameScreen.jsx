@@ -1,22 +1,22 @@
 import {
-  StyleSheet,
   Text,
   View,
   SafeAreaView,
   Image,
   TextInput,
   TouchableOpacity,
-  Alert,
 } from "react-native";
 import React, { useState, useEffect ,useContext} from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { SignUpContext } from "../_layout";
+import ErrorText from "../../components/ErrorText";
 
 
 const NameScreen = ({ navigation }) => {
   const { signUpForm, setSignUpForm } = useContext(SignUpContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [error,setError] = useState(["",""]);
 
   useEffect(() => {
     if(signUpForm?.firstName || signUpForm?.lastName){
@@ -28,12 +28,29 @@ const NameScreen = ({ navigation }) => {
   const handleNext = () => {
     if (firstName.trim() !== "" && lastName.trim() !== "") {
       setSignUpForm({...signUpForm, firstName: firstName , lastName: lastName})
+      setError(["",""]);
       // Navigate to the next screen
       navigation.navigate("Email");
     }else{
-      // apply check
+      handleError();
     }
   };
+
+  const handleError=()=>{
+    const newError= [...error];
+      if(firstName.trim() == ""){
+        newError[0]="First Name is required";
+      }else{
+        newError[0]="";
+      }
+      if(lastName.trim() == ""){
+        newError[1]="Last Name is required";
+      }else{
+        newError[1]="";
+      }
+      setError(newError);
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
       <View style={{ marginTop: 30, marginHorizontal: 20 }}>
@@ -87,9 +104,10 @@ const NameScreen = ({ navigation }) => {
               paddingBottom: 10,
               
             }}
-            placeholder="First name (required)"
+            placeholder="First name"
             placeholderTextColor={"#BEBEBE"}
           />
+          {error[0] && <ErrorText message={error[0]}/>}
           <TextInput
             value={lastName ? lastName: null}
             onChangeText={(text) => setLastName(text)}
@@ -106,9 +124,7 @@ const NameScreen = ({ navigation }) => {
             placeholder="Last name"
             placeholderTextColor={"#BEBEBE"}
           />
-          <Text style={{ fontSize: 15, color: "gray", fontWeight: "500" }}>
-            Last name is optional.
-          </Text>
+           {error[1] && <ErrorText message={error[1]}/>}
         </View>
         <TouchableOpacity
           onPress={handleNext}
@@ -128,5 +144,3 @@ const NameScreen = ({ navigation }) => {
 };
 
 export default NameScreen;
-
-const styles = StyleSheet.create({});

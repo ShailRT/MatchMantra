@@ -5,7 +5,6 @@ import {
   SafeAreaView,
   Image,
   Pressable,
-  TextInput,
   Button,
   TouchableOpacity,
 } from "react-native";
@@ -17,12 +16,14 @@ import { SignUpContext } from "../_layout";
 import * as ImagePicker from 'expo-image-picker';
 import { removeProfileImage, setProfileImage } from "../../utils/backendCalls";
 import { createDataForImage, createDataForImageRemove } from "../../utils/payloadUtils";
+import ErrorText from "../../components/ErrorText";
 
 const PhotoScreen = ({ navigation }) => {
   const { signUpForm, setSignUpForm } = useContext(SignUpContext);
   const [photo, setPhoto] = useState(null);
 
   const [imageUrls, setImageUrls] = useState(["", "", ""]);
+  const [error, setError]=useState("");
 
   // requestPermission 
   const requestPermission = async () => {
@@ -90,14 +91,18 @@ const PhotoScreen = ({ navigation }) => {
   console.log("image urs: " , imageUrls);
 
   const handleNext = () => {
-    if (imageUrls.length>0) {
+    if (validatePhotos()) {
       setSignUpForm({...signUpForm, profile_pictures: imageUrls })
-      // Navigate to the next screen
+      setError("")
       navigation.navigate("PreFinal");
     }else{
-      // apply check
+      setError("Must Add 3 Photos!")
     }
   };
+
+  const validatePhotos=()=>{
+   return !imageUrls.includes("");
+  }
 
 
   const removeImage=async (index)=>{
@@ -233,7 +238,7 @@ const PhotoScreen = ({ navigation }) => {
         </View> */}
 
         <View style={{ marginVertical: 10 }}>
-          <Text style={{ color: "gray", fontSize: 15 }}>Drag to reorder</Text>
+          {/* <Text style={{ color: "gray", fontSize: 15 }}>Drag to reorder</Text> */}
           <Text
             style={{
               fontSize: 15,
@@ -244,6 +249,7 @@ const PhotoScreen = ({ navigation }) => {
           >
             Add three photos
           </Text>
+          {error && <ErrorText message={error}/>}
         </View>
 
         <View style={{ marginTop: 25 }}>

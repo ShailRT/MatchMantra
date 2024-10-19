@@ -2,31 +2,44 @@ import {
   StyleSheet,
   Text,
   View,
-  Pressable,
   TextInput,
   Image,
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState,useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import { SignUpContext } from "../_layout";
+import ErrorText from "../../components/ErrorText";
  
 
 const PasswordScreen = ({ navigation }) => {
   const { signUpForm, setSignUpForm } = useContext(SignUpContext);
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState(''); 
+  const [error, setError]= useState("");
 
   const handleNext = () => {
-    if (password.trim() !== "" ) {
-      setSignUpForm({...signUpForm, password:password})
+    if (validatePassword()) {
+      setSignUpForm({...signUpForm, password:password, confirmPassword:confirmPassword})
+      setError("");
       // Navigate to the next screen
       navigation.navigate("Birth");
-    }else{
-      // apply check
     }
   };
+
+  const validatePassword=()=>{
+    if (password.trim() == "" || password.length < 8) {
+      setError("Password should be of atleast 8 characters");
+      return false;
+    }
+    if(password!= confirmPassword){
+      setError("Pasword does not match");
+      return false;
+    }
+    return true;
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -80,6 +93,25 @@ const PasswordScreen = ({ navigation }) => {
           placeholder="Enter your password"
           placeholderTextColor={"#BEBEBE"}
         />
+
+        <TextInput
+          secureTextEntry={true}
+          onChangeText={(text) => setConfirmPassword(text)}
+          style={{
+            width: 340,
+            marginVertical: 10,
+            fontSize: 22,
+            marginTop: 25,
+            borderBottomColor: "black",
+            borderBottomWidth: 1,
+            paddingBottom: 10,
+            
+          }}
+          placeholder="Confirm password"
+          placeholderTextColor={"#BEBEBE"}
+        />
+
+          {error && <ErrorText message={error} /> }
         <Text style={{ color: "gray", fontSize: 15, marginTop: 7 }}>
           Note: Your details will be safe with us.
         </Text>
