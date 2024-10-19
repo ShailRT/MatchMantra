@@ -22,12 +22,20 @@ import {
 } from "../../utils/backendCalls";
 import LikeBtn from "../../components/LikeBtn";
 import FeedInfo from "../../components/FeedInfo";
+import Loading from "../loading";
 const feed = () => {
+  const loadingLabelOptions = {
+    DEFAULT: "default",
+    LIKE: "like",
+    REJECT: "reject",
+  };
   const { user } = useContext(UserContext);
+  const [pageIsReady, setPageIsReady] = useState(false);
   const [profile, setProfile] = useState({});
   const [profilePictures, setProfilePictures] = useState([]);
+  const [loadingLabel, setLoadingLabel] = useState(loadingLabelOptions.DEFAULT);
 
-  async function fetchProfile() {
+  async function fetchProfile(status) {
     try {
       const profile = await getMatchingProfile(user.token);
       console.log("profile returned: " + profile);
@@ -36,6 +44,8 @@ const feed = () => {
       }
     } catch (error) {
       console.log("error while getting profile: ", error);
+    } finally {
+      setTimeout(() => setPageIsReady(true), 700);
     }
   }
 
@@ -57,6 +67,8 @@ const feed = () => {
   const handleReject = async () => {
     console.log("tapped reject");
     try {
+      setPageIsReady(false);
+      setLoadingLabel(loadingLabelOptions.REJECT);
       const data = {
         user_id: profile?.id,
       };
@@ -71,6 +83,8 @@ const feed = () => {
   const handleLike = async () => {
     console.log("tapped like");
     try {
+      setPageIsReady(false);
+      setLoadingLabel(loadingLabelOptions.LIKE);
       const data = {
         user_id: profile?.id,
       };
@@ -92,7 +106,9 @@ const feed = () => {
 
   const [activePrefrence, setActivePrefrence] = useState(prefrenceList[1]);
 
-  return (
+  return !pageIsReady ? (
+    <Loading loadingLabel={loadingLabel} />
+  ) : (
     <SafeAreaView className="pb-14">
       {!user?.token ? (
         <NeedSignIn />

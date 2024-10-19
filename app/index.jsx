@@ -8,6 +8,8 @@ export default function App() {
 
   if (user?.token) {
     return <Redirect href="feed" />;
+  } else {
+    return <Redirect href="sign-in" />;
   }
 
   return (
