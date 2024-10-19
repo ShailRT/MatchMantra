@@ -53,7 +53,7 @@ const BasicInfo = ({ navigation }) => {
 
       <Pressable
         onPress={() => navigation.navigate("Name")}
-        style={{ backgroundColor: "#900C3F", padding: 15, marginTop: "auto" }}
+        style={{ backgroundColor: "#a3282b", padding: 15, marginTop: "auto" }}
       >
         <Text
           style={{
