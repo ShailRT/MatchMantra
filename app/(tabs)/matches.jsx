@@ -11,6 +11,7 @@ import { ChevronRightIcon, StarIcon, SearchIcon } from "../../constants/icons";
 import PreferenceBar from "../../components/PreferenceBar";
 import { useState } from "react";
 import LikeProfile from "../../components/LikeProfile";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const Matches = () => {
   const prefrenceList = [
@@ -33,11 +34,7 @@ const Matches = () => {
             </View>
             <View className="flex-row">
               <View className="mt-1.5">
-                <Image
-                  source={StarIcon}
-                  className="w-5 h-5"
-                  resizeMode="contain"
-                />
+                <MaterialCommunityIcons name="star-outline" size={30} />
               </View>
             </View>
           </View>
@@ -65,26 +62,27 @@ const Matches = () => {
         data={[
           {
             id: 1,
+            name: "Kevin",
             image:
-              "https://m.media-amazon.com/images/I/61KpZVl3bfL._AC_UF1000,1000_QL80_.jpg",
+              "https://christophertoddstudios.com/wp-content/uploads/2022/02/online-dating-KevinBrookim-Onlinedating-82-683x1024.jpg",
           },
           {
             id: 2,
             image:
-              "https://i.pinimg.com/736x/73/3b/5d/733b5dbf63c4031666f395c52c5a4633.jpg",
-            prompt: {
-              title: "I'm looking for",
-              message: "Shailesh Rawat",
-            },
+              "https://www.heysaturday.co/wp-content/uploads/2021/09/Best-Dating-Profile-Photos.jpg",
+            name: "Laila",
           },
           {
             id: 3,
+            name: "Brandy",
             image:
-              "https://miro.medium.com/v2/resize:fit:640/1*3YDzpCrL_6qO1wv0Gq4akw.jpeg",
+              "https://i.pinimg.com/736x/ae/b4/27/aeb4271447a6f26baa4b95b8766b0242.jpg",
           },
         ]}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => <LikeProfile image={item.image} />}
+        renderItem={({ item }) => (
+          <LikeProfile image={item.image} name={item.name} />
+        )}
         // showsVerticalScrollIndicator="false"
       />
     </SafeAreaView>

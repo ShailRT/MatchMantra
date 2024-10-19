@@ -18,13 +18,15 @@ const PreferenceBar = ({ activePrefrence, setActivePrefrence, item }) => {
   ) : (
     <TouchableOpacity onPress={() => handleClick(item)}>
       <View
-        className={`px-4 h-10 items-center justify-center mr-2 rounded-full border-gray-100 border ${
-          activePrefrence.id === item.id ? "bg-black-100" : "bg-secondary"
+        className={`px-4 h-10 items-center justify-center mr-2 rounded-full border-[#a3282b] border ${
+          activePrefrence.id === item.id ? "bg-white" : "bg-[#a3282b]"
         }`}
       >
         <Text
           className={`font-pmedium ${
-            activePrefrence.id === item.id ? "text-white" : "text-gray-400"
+            activePrefrence.id === item.id
+              ? "text-black-100 font-psemibold"
+              : "text-white"
           }`}
         >
           {item.text}

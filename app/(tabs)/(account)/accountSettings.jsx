@@ -33,7 +33,7 @@ const accountSettings = () => {
   const [isToggleDistance, setIsToggleDistance] = useState(false);
   const [isToggleVerified, setIsToggleVerified] = useState(true);
   const [slidervalue, setSlidervalue] = useState(22);
-  const [income, setIncome] = useState(20000);
+  const [income, setIncome] = useState(7);
   const [value, setValue] = useState(null);
 
   const renderItem = (item) => {
@@ -169,15 +169,17 @@ const accountSettings = () => {
                 justifyContent: "center",
               }}
             >
-              <Text style={{ fontSize: 18 }}>Between 10000 and {income}</Text>
+              <Text style={{ fontSize: 18 }}>
+                Between 5 LPA and {income} LPA
+              </Text>
             </View>
 
             <Slider
               style={{ width: 280, height: 40 }}
-              minimumValue={20000}
-              maximumValue={100000}
+              minimumValue={7}
+              maximumValue={100}
               onValueChange={(value) => setIncome(value)}
-              step={1000}
+              step={1}
               value={income}
               minimumTrackTintColor="black" // Track before thumb (left side)
               maximumTrackTintColor="black" // Track after thumb (right side)

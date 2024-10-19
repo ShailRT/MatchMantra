@@ -26,6 +26,7 @@ import {
 } from "../../../utils/backendCalls";
 import LikeBtn from "../../../components/LikeBtn";
 import { getEvents } from "../../../utils/backendCalls";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
 const events = () => {
   const { user } = useContext(UserContext);
@@ -99,11 +100,7 @@ const events = () => {
               </View>
               <View className="flex-row">
                 <View className="mt-1.5">
-                  <Image
-                    source={StarIcon}
-                    className="w-5 h-5"
-                    resizeMode="contain"
-                  />
+                  <MaterialCommunityIcons name="star-outline" size={22} />
                 </View>
                 <View className="mt-1.5 ml-5 mr-2">
                   <Image

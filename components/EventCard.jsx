@@ -31,7 +31,14 @@ const EventCard = ({ image, id, title }) => {
               14 Aug 2024 onwards
             </Text>
             <View className="flex-row mt-2">
-              <TouchableOpacity onPress={() => router.push("./Navratri")}>
+              <TouchableOpacity
+                onPress={() =>
+                  router.push({
+                    pathname: "./eventDetails",
+                    params: { id: "Navratri" },
+                  })
+                }
+              >
                 <View className="px-4 h-10 items-center justify-center mr-2 rounded-full border-gray-100 border text-black-100">
                   <Text className="font-pmedium ">Details</Text>
                 </View>
