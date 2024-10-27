@@ -42,7 +42,11 @@ const serviceOptions = () => {
         >
           Select your service
         </Text>
-        <TouchableOpacity style={styles.box} className="mb-4 mt-10">
+        <TouchableOpacity
+          style={styles.box}
+          className="mb-4 mt-10"
+          onPress={() => router.replace("/(tabs)/feed")}
+        >
           <ImageBackground
             source={{
               uri: "https://images.pexels.com/photos/25875617/pexels-photo-25875617/free-photo-of-indian-wedding-couple-kissing.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -112,7 +116,11 @@ const serviceOptions = () => {
           </ImageBackground>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.box} className="mb-10">
+        <TouchableOpacity
+          style={styles.box}
+          className="mb-10"
+          onPress={() => router.replace("/(tabs)/events")}
+        >
           <ImageBackground
             source={{
               uri: "https://images.pexels.com/photos/2174662/pexels-photo-2174662.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
