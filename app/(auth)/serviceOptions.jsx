@@ -1,15 +1,48 @@
-import { StyleSheet, Text, View, ImageBackground } from "react-native";
+import { StyleSheet, Text, View, ImageBackground, Image } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableOpacity } from "react-native";
 import { router } from "expo-router";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 
-const ServiceOptions = () => {
+const serviceOptions = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <TouchableOpacity style={styles.box}>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View
+            style={{
+              width: 44,
+              height: 44,
+              borderRadius: 22,
+              borderColor: "black",
+              borderWidth: 2,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <MaterialCommunityIcons
+              name="handshake-outline"
+              size={26}
+              color="black"
+            />
+          </View>
+          <Image
+            style={{ width: 100, height: 40 }}
+            source={{
+              uri: "https://cdn-icons-png.flaticon.com/128/10613/10613685.png",
+            }}
+          />
+        </View>
+        <Text
+          style={{
+            marginTop: 15,
+          }}
+          className="font-psemibold text-xl"
+        >
+          Select your service
+        </Text>
+        <TouchableOpacity style={styles.box} className="mb-4 mt-10">
           <ImageBackground
             source={{
               uri: "https://images.pexels.com/photos/25875617/pexels-photo-25875617/free-photo-of-indian-wedding-couple-kissing.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -19,21 +52,23 @@ const ServiceOptions = () => {
           >
             <View style={styles.overlay}>
               <View style={styles.iconTextRow}>
-                <Text style={styles.boxText}>Matchmaking</Text>
+                <Text style={styles.boxText} className="font-psemibold">
+                  MATCHMAKING
+                </Text>
                 <View
                   style={{
-                    width: 44,
-                    height: 44,
+                    width: 38,
+                    height: 38,
                     borderRadius: 22,
                     borderColor: "#fff",
-                    borderWidth: 2,
+                    borderWidth: 3,
                     justifyContent: "center",
                     alignItems: "center",
                   }}
                 >
                   <MaterialCommunityIcons
                     name="hand-heart"
-                    size={26}
+                    size={21}
                     color="#fff" // Changed the icon color to white
                   />
                 </View>
@@ -42,7 +77,7 @@ const ServiceOptions = () => {
           </ImageBackground>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.box}>
+        <TouchableOpacity style={styles.box} className="mb-4">
           <ImageBackground
             source={{
               uri: "https://images.pexels.com/photos/2060239/pexels-photo-2060239.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -54,30 +89,30 @@ const ServiceOptions = () => {
               <View style={styles.iconTextRow}>
                 <View
                   style={{
-                    width: 44,
-                    height: 44,
+                    width: 38,
+                    height: 38,
                     borderRadius: 22,
                     borderColor: "#fff",
-                    borderWidth: 2,
+                    borderWidth: 3,
                     justifyContent: "center",
                     alignItems: "center",
                   }}
                 >
                   <MaterialCommunityIcons
                     name="currency-usd"
-                    size={28}
+                    size={26}
                     color="#fff" // Changed the icon color to white
                   />
                 </View>
-                <Text className="font-pthin" style={styles.boxText}>
-                  Subscription
+                <Text className="font-psemibold" style={styles.boxText}>
+                  SUBSCRIPTION
                 </Text>
               </View>
             </View>
           </ImageBackground>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.box}>
+        <TouchableOpacity style={styles.box} className="mb-10">
           <ImageBackground
             source={{
               uri: "https://images.pexels.com/photos/2174662/pexels-photo-2174662.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
@@ -87,21 +122,23 @@ const ServiceOptions = () => {
           >
             <View style={styles.overlay}>
               <View style={styles.iconTextRow}>
-                <Text style={styles.boxText}>Dating Events</Text>
+                <Text style={styles.boxText} className="font-psemibold">
+                  DATING EVENTS
+                </Text>
                 <View
                   style={{
-                    width: 44,
-                    height: 44,
+                    width: 38,
+                    height: 38,
                     borderRadius: 22,
                     borderColor: "#fff",
-                    borderWidth: 2,
+                    borderWidth: 3,
                     justifyContent: "center",
                     alignItems: "center",
                   }}
                 >
                   <MaterialCommunityIcons
                     name="heart-outline"
-                    size={28}
+                    size={22}
                     color="#fff" // Changed the icon color to white
                   />
                 </View>
@@ -114,13 +151,15 @@ const ServiceOptions = () => {
   );
 };
 
-export default ServiceOptions;
+export default serviceOptions;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    marginTop: -30,
+    // backgroundColor: "#fff",
+    marginTop: 30,
+    marginHorizontal: 20,
+    // marginTop: -30,
   },
   content: {
     flex: 1,
@@ -153,7 +192,7 @@ const styles = StyleSheet.create({
   boxText: {
     color: "#fff", // White text color
     fontSize: 28,
-    fontWeight: "bold",
+    // fontWeight: "bold",
     backgroundColor: "rgba(0, 0, 0, 0.0)", // Transparent background for the text
     paddingHorizontal: 10, // Add space between icon and text
     paddingVertical: 10,

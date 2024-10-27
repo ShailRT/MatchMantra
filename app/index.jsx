@@ -7,11 +7,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default function App() {
   const { user } = useContext(UserContext);
 
-  if (user?.token) {
-    return <Redirect href="feed" />;
-  } else {
-    return <Redirect href="sign-in" />;
-  }
+  // if (user?.token) {
+  //   return <Redirect href="feed" />;
+  // } else {
+  //   return <Redirect href="sign-in" />;
+  // }
 
   return (
     <View className="flex-1 items-center justify-center bg-white">
@@ -27,7 +27,7 @@ export default function App() {
       <Link href="StackNavigator">
         <Text>Sign Up</Text>
       </Link>
-      <Link href="/ServiceOptions">
+      <Link href="/(auth)/serviceOptions">
         <Text>AccountSetting</Text>
       </Link>
     </View>

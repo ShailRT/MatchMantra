@@ -6,20 +6,20 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect ,useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { SignUpContext } from "../_layout";
 import ErrorText from "../../components/ErrorText";
-
+import { router } from "expo-router";
 
 const NameScreen = ({ navigation }) => {
   const { signUpForm, setSignUpForm } = useContext(SignUpContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [error,setError] = useState(["",""]);
+  const [error, setError] = useState(["", ""]);
 
   useEffect(() => {
-    if(signUpForm?.firstName || signUpForm?.lastName){
+    if (signUpForm?.firstName || signUpForm?.lastName) {
       setFirstName(signUpForm?.firstName);
       setLastName(signUpForm?.lastName);
     }
@@ -27,28 +27,32 @@ const NameScreen = ({ navigation }) => {
 
   const handleNext = () => {
     if (firstName.trim() !== "" && lastName.trim() !== "") {
-      setSignUpForm({...signUpForm, firstName: firstName , lastName: lastName})
-      setError(["",""]);
+      setSignUpForm({
+        ...signUpForm,
+        firstName: firstName,
+        lastName: lastName,
+      });
+      setError(["", ""]);
       // Navigate to the next screen
       navigation.navigate("Email");
-    }else{
+    } else {
       handleError();
     }
   };
 
-  const handleError=()=>{
-    const newError= [...error];
-      if(firstName.trim() == ""){
-        newError[0]="First Name is required";
-      }else{
-        newError[0]="";
-      }
-      if(lastName.trim() == ""){
-        newError[1]="Last Name is required";
-      }else{
-        newError[1]="";
-      }
-      setError(newError);
+  const handleError = () => {
+    const newError = [...error];
+    if (firstName.trim() == "") {
+      newError[0] = "First Name is required";
+    } else {
+      newError[0] = "";
+    }
+    if (lastName.trim() == "") {
+      newError[1] = "Last Name is required";
+    } else {
+      newError[1] = "";
+    }
+    setError(newError);
   };
 
   return (
@@ -85,14 +89,13 @@ const NameScreen = ({ navigation }) => {
             style={{
               fontSize: 25,
               fontWeight: "bold",
-              
             }}
           >
             What's your name?
           </Text>
           <TextInput
             autoFocus={true}
-            value={firstName ? firstName: null}
+            value={firstName ? firstName : null}
             onChangeText={(text) => setFirstName(text)}
             style={{
               width: 340,
@@ -102,14 +105,13 @@ const NameScreen = ({ navigation }) => {
               borderBottomColor: "black",
               borderBottomWidth: 1,
               paddingBottom: 10,
-              
             }}
             placeholder="First name"
             placeholderTextColor={"#BEBEBE"}
           />
-          {error[0] && <ErrorText message={error[0]}/>}
+          {error[0] && <ErrorText message={error[0]} />}
           <TextInput
-            value={lastName ? lastName: null}
+            value={lastName ? lastName : null}
             onChangeText={(text) => setLastName(text)}
             style={{
               width: 340,
@@ -119,12 +121,11 @@ const NameScreen = ({ navigation }) => {
               borderBottomColor: "black",
               borderBottomWidth: 1,
               paddingBottom: 10,
-              
             }}
             placeholder="Last name"
             placeholderTextColor={"#BEBEBE"}
           />
-           {error[1] && <ErrorText message={error[1]}/>}
+          {error[1] && <ErrorText message={error[1]} />}
         </View>
         <TouchableOpacity
           onPress={handleNext}
