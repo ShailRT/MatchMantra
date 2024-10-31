@@ -30,7 +30,7 @@ const StackNavigator = () => {
       <Stack.Screen name="Type" component={TypeScreen} />
       <Stack.Screen name="Dating" component={DatingScreen} />
       <Stack.Screen name="Look" component={LookingFor} />
-      <Stack.Screen name="HomeT" component={HomeTownScreen} />
+      <Stack.Screen name="HomeTown" component={HomeTownScreen} />
       <Stack.Screen name="Photo" component={PhotoScreen} />
       <Stack.Screen name="Prompt" component={PromptsScreen} />
       <Stack.Screen name="ShowPrompts" component={ShowPromptsScreen} />

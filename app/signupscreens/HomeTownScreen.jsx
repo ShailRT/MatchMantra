@@ -7,7 +7,7 @@ import {
   Image,
   TextInput,
 } from "react-native";
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { SignUpContext } from "../_layout";
@@ -16,25 +16,23 @@ import ErrorText from "../../components/ErrorText";
 const HomeTownScreen = ({ navigation }) => {
   const { signUpForm, setSignUpForm } = useContext(SignUpContext);
   const [hometown, setHometown] = useState("");
-  const [error , setError] = useState("");
+  const [error, setError] = useState("");
 
- useEffect(() => {
-    if(signUpForm?.location ){
+  useEffect(() => {
+    if (signUpForm?.location) {
       setHometown(signUpForm?.location);
     }
   }, []);
 
-
   const handleNext = () => {
-    if (hometown.trim() !== "" ) {
-      setSignUpForm({...signUpForm, location: hometown})
-      setError("")
+    if (hometown.trim() !== "") {
+      setSignUpForm({ ...signUpForm, location: hometown });
+      setError("");
       navigation.navigate("Photo");
-    }else{
-      setError("This field is required!")
+    } else {
+      setError("This field is required!");
     }
   };
-
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -51,7 +49,8 @@ const HomeTownScreen = ({ navigation }) => {
               alignItems: "center",
             }}
           >
-            <AntDesign name="hearto" size={22} color="black" />
+            <MaterialCommunityIcons name="home-outline" size={30} />
+            {/* <AntDesign name="hearto" size={22} color="black" /> */}
           </View>
           <Image
             style={{ width: 100, height: 40 }}
@@ -62,29 +61,27 @@ const HomeTownScreen = ({ navigation }) => {
         </View>
         <Text
           style={{
-            fontSize: 25,
-            fontWeight: "bold",
-            
             marginTop: 15,
           }}
+          className="font-psemibold text-2xl"
         >
           Where's your home Town?
         </Text>
 
         <TextInput
-          value={hometown? hometown:null}
+          value={hometown ? hometown : null}
           onChangeText={(text) => setHometown(text)}
           autoFocus={true}
           style={{
             width: 340,
             marginVertical: 10,
-            fontSize: hometown ? 22 : 22,
+            fontSize: hometown ? 20 : 20,
             marginTop: 45,
             borderBottomColor: "black",
             borderBottomWidth: 1,
             paddingBottom: 10,
-            
           }}
+          className="font-plight text-lg"
           placeholder="HomeTown"
           placeholderTextColor={"#BEBEBE"}
         />
@@ -98,7 +95,7 @@ const HomeTownScreen = ({ navigation }) => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#205B5A"
             style={{ alignSelf: "center", marginTop: 20 }}
           />
         </TouchableOpacity>
@@ -108,4 +105,3 @@ const HomeTownScreen = ({ navigation }) => {
 };
 
 export default HomeTownScreen;
-

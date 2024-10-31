@@ -7,39 +7,42 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import { SignUpContext } from "../_layout";
 import ErrorText from "../../components/ErrorText";
- 
 
 const PasswordScreen = ({ navigation }) => {
   const { signUpForm, setSignUpForm } = useContext(SignUpContext);
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState(''); 
-  const [error, setError]= useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleNext = () => {
     if (validatePassword()) {
-      setSignUpForm({...signUpForm, password:password, confirmPassword:confirmPassword})
+      setSignUpForm({
+        ...signUpForm,
+        password: password,
+        confirmPassword: confirmPassword,
+      });
       setError("");
       // Navigate to the next screen
       navigation.navigate("Birth");
     }
   };
 
-  const validatePassword=()=>{
+  const validatePassword = () => {
     if (password.trim() == "" || password.length < 8) {
       setError("Password should be of atleast 8 characters");
       return false;
     }
-    if(password!= confirmPassword){
+    if (password != confirmPassword) {
       setError("Pasword does not match");
       return false;
     }
     return true;
-  }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -56,7 +59,8 @@ const PasswordScreen = ({ navigation }) => {
               alignItems: "center",
             }}
           >
-            <Fontisto name="email" size={26} color="black" />
+            <MaterialCommunityIcons name="lock-outline" size={25} />
+            {/* <Fontisto name="email" size={26} color="black" /> */}
           </View>
           <Image
             style={{ width: 100, height: 40 }}
@@ -67,11 +71,10 @@ const PasswordScreen = ({ navigation }) => {
         </View>
         <Text
           style={{
-            fontSize: 25,
-            fontWeight: "bold",
-            
             marginTop: 15,
+            fontSize: 23,
           }}
+          className="font-psemibold text-2xl"
         >
           Please choose your password
         </Text>
@@ -83,13 +86,13 @@ const PasswordScreen = ({ navigation }) => {
           style={{
             width: 340,
             marginVertical: 10,
-            fontSize: 22,
+            fontSize: 20,
             marginTop: 25,
             borderBottomColor: "black",
             borderBottomWidth: 1,
             paddingBottom: 10,
-            
           }}
+          className="font-plight text-lg"
           placeholder="Enter your password"
           placeholderTextColor={"#BEBEBE"}
         />
@@ -100,19 +103,22 @@ const PasswordScreen = ({ navigation }) => {
           style={{
             width: 340,
             marginVertical: 10,
-            fontSize: 22,
+            fontSize: 20,
             marginTop: 25,
             borderBottomColor: "black",
             borderBottomWidth: 1,
             paddingBottom: 10,
-            
           }}
+          className="font-plight text-lg"
           placeholder="Confirm password"
           placeholderTextColor={"#BEBEBE"}
         />
 
-          {error && <ErrorText message={error} /> }
-        <Text style={{ color: "gray", fontSize: 15, marginTop: 7 }}>
+        {error && <ErrorText message={error} />}
+        <Text
+          style={{ color: "gray", marginTop: 7 }}
+          className="font-plight text-sm"
+        >
           Note: Your details will be safe with us.
         </Text>
         <TouchableOpacity
@@ -123,7 +129,7 @@ const PasswordScreen = ({ navigation }) => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#205B5A"
             style={{ alignSelf: "center", marginTop: 20 }}
           />
         </TouchableOpacity>

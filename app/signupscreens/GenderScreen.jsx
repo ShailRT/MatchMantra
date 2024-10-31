@@ -7,32 +7,31 @@ import {
   Pressable,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect , useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { SignUpContext } from "../_layout";
 import ErrorText from "../../components/ErrorText";
 
 const GenderScreen = ({ navigation }) => {
-  const  { signUpForm, setSignUpForm } = useContext(SignUpContext);
- 
+  const { signUpForm, setSignUpForm } = useContext(SignUpContext);
+
   const [gender, setGender] = useState("");
-  const [error, setError]= useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    if(signUpForm?.gender ){
-      setGender(signUpForm?.gender); 
+    if (signUpForm?.gender) {
+      setGender(signUpForm?.gender);
     }
   }, []);
 
- 
   const handleNext = () => {
-    if (gender.trim() !== "" ) {
-      setSignUpForm({...signUpForm, gender: gender})
+    if (gender.trim() !== "") {
+      setSignUpForm({ ...signUpForm, gender: gender });
       setError("");
-      navigation.navigate("HomeT");
-    }else{
-      setError("Select a Gender!")
+      navigation.navigate("HomeTown");
+    } else {
+      setError("Select a Gender!");
     }
   };
 
@@ -52,8 +51,8 @@ const GenderScreen = ({ navigation }) => {
             }}
           >
             <MaterialCommunityIcons
-              name="cake-variant-outline"
-              size={26}
+              name="gender-transgender"
+              size={24}
               color="black"
             />
           </View>
@@ -66,16 +65,17 @@ const GenderScreen = ({ navigation }) => {
         </View>
         <Text
           style={{
-            fontSize: 25,
-            fontWeight: "bold",
-            
             marginTop: 15,
           }}
+          className="font-psemibold text-2xl"
         >
           Which gender descibes you the best?
         </Text>
 
-        <Text style={{ marginTop: 30, fontSize: 15, color: "gray" }}>
+        <Text
+          style={{ marginTop: 30, color: "gray" }}
+          className="font-plight text-sm"
+        >
           Match Mantra users are matched based on these three gender groups. You
           can add more about gender after
         </Text>
@@ -88,12 +88,17 @@ const GenderScreen = ({ navigation }) => {
               justifyContent: "space-between",
             }}
           >
-            <Text style={{ fontWeight: "500", fontSize: 15 }}>Male</Text>
+            <Text
+              style={{ fontWeight: "500" }}
+              className="font-psemicold text-base"
+            >
+              Male
+            </Text>
             <Pressable onPress={() => setGender("Male")}>
               <FontAwesome
                 name="circle"
                 size={26}
-                color={gender == "Male" ? "#581845" : "#F0F0F0"}
+                color={gender == "Male" ? "#205B5A" : "#F0F0F0"}
               />
             </Pressable>
           </View>
@@ -105,12 +110,17 @@ const GenderScreen = ({ navigation }) => {
               marginVertical: 12,
             }}
           >
-            <Text style={{ fontWeight: "500", fontSize: 15 }}>Female</Text>
+            <Text
+              style={{ fontWeight: "500" }}
+              className="font-psemicold text-base"
+            >
+              Female
+            </Text>
             <Pressable onPress={() => setGender("Female")}>
               <FontAwesome
                 name="circle"
                 size={26}
-                color={gender == "Female" ? "#581845" : "#F0F0F0"}
+                color={gender == "Female" ? "#205B5A" : "#F0F0F0"}
               />
             </Pressable>
           </View>
@@ -121,12 +131,17 @@ const GenderScreen = ({ navigation }) => {
               justifyContent: "space-between",
             }}
           >
-            <Text style={{ fontWeight: "500", fontSize: 15 }}>Others</Text>
+            <Text
+              style={{ fontWeight: "500" }}
+              className="font-psemicold text-base"
+            >
+              Others
+            </Text>
             <Pressable onPress={() => setGender("Others")}>
               <FontAwesome
                 name="circle"
                 size={26}
-                color={gender == "Others" ? "#581845" : "#F0F0F0"}
+                color={gender == "Others" ? "#205B5A" : "#F0F0F0"}
               />
             </Pressable>
           </View>
@@ -140,7 +155,7 @@ const GenderScreen = ({ navigation }) => {
             gap: 8,
           }}
         >
-          {error && <ErrorText message={error} /> }
+          {error && <ErrorText message={error} />}
         </View>
         <TouchableOpacity
           onPress={handleNext}
@@ -150,7 +165,7 @@ const GenderScreen = ({ navigation }) => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#205B5A"
             style={{ alignSelf: "center", marginTop: 20 }}
           />
         </TouchableOpacity>
