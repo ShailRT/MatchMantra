@@ -16,7 +16,7 @@ const PreFinalScreen = () => {
       const response = await updateProfile(data);
       setSignUpForm("");
       setUser({ user: response[0].user, token: response[1] });
-      router.push("feed");
+      router.replace("(auth)/serviceOptions");
     } catch (error) {
       console.log("error in handleSubmit", error);
     }
