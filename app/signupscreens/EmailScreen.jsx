@@ -16,7 +16,10 @@ import ErrorText from "../../components/ErrorText";
 const EmailScreen = ({ navigation }) => {
   const { signUpForm, setSignUpForm } = useContext(SignUpContext);
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   useEffect(() => {
     if (signUpForm?.email) {
@@ -25,10 +28,17 @@ const EmailScreen = ({ navigation }) => {
   }, []);
 
   const handleNext = () => {
-    if (validateEmail()) {
-      setSignUpForm({ ...signUpForm, email: email.toLowerCase() });
+    if (validateEmail() && validatePassword()) {
+      setSignUpForm({
+        ...signUpForm,
+        email: email.toLowerCase(),
+        password: password,
+        confirmPassword: confirmPassword,
+      });
       // Navigate to the next screen
-      navigation.navigate("Password");
+      setError("");
+      setPasswordError("");
+      navigation.navigate("Birth");
     }
   };
 
@@ -38,6 +48,18 @@ const EmailScreen = ({ navigation }) => {
       return false;
     } else if (!/\S+@\S+\.\S+/.test(email)) {
       setError("Email address is invalid");
+      return false;
+    }
+    return true;
+  };
+
+  const validatePassword = () => {
+    if (password.trim() == "" || password.length < 8) {
+      setPasswordError("Password should be of atleast 8 characters");
+      return false;
+    }
+    if (password != confirmPassword) {
+      setPasswordError("Pasword does not match");
       return false;
     }
     return true;
@@ -73,10 +95,10 @@ const EmailScreen = ({ navigation }) => {
           }}
           className="font-psemibold text-2xl"
         >
-          Please provide a valid email
+          Please provide a valid Email and Password
         </Text>
 
-        <Text
+        {/* <Text
           style={{ marginTop: 30, color: "gray" }}
           className="font-plight text-sm"
         >
@@ -84,7 +106,7 @@ const EmailScreen = ({ navigation }) => {
           <Text style={{ color: "#581845", fontWeight: "500" }}>
             Learn more
           </Text>
-        </Text>
+        </Text> */}
         <TextInput
           autoFocus={true}
           value={email ? email : null}
@@ -103,12 +125,56 @@ const EmailScreen = ({ navigation }) => {
           placeholderTextColor={"#BEBEBE"}
         />
         {error && <ErrorText message={error} />}
-        <Text
+        {/* <Text
           style={{ color: "gray", marginTop: 7 }}
           className="font-plight text-sm"
         >
           Note: You will be asked to verify your email
-        </Text>
+        </Text> */}
+
+        <TextInput
+          secureTextEntry={true}
+          autoFocus={true}
+          onChangeText={(text) => setPassword(text)}
+          style={{
+            width: 340,
+            marginVertical: 10,
+            fontSize: 20,
+            marginTop: 25,
+            borderBottomColor: "black",
+            borderBottomWidth: 1,
+            paddingBottom: 10,
+          }}
+          className="font-plight text-lg"
+          placeholder="Enter your password"
+          placeholderTextColor={"#BEBEBE"}
+        />
+
+        <TextInput
+          secureTextEntry={true}
+          onChangeText={(text) => setConfirmPassword(text)}
+          style={{
+            width: 340,
+            marginVertical: 10,
+            fontSize: 20,
+            marginTop: 25,
+            borderBottomColor: "black",
+            borderBottomWidth: 1,
+            paddingBottom: 10,
+          }}
+          className="font-plight text-lg"
+          placeholder="Confirm password"
+          placeholderTextColor={"#BEBEBE"}
+        />
+
+        {passwordError && <ErrorText message={passwordError} />}
+        {/* <Text
+          style={{ color: "gray", marginTop: 7 }}
+          className="font-plight text-sm"
+        >
+          Note: Your details will be safe with us.
+        </Text> */}
+
         <TouchableOpacity
           onPress={handleNext}
           activeOpacity={0.8}

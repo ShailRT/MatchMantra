@@ -94,8 +94,9 @@ const BirthScreen = ({ navigation }) => {
     }
 
     const today = new Date();
-    if (today.getFullYear() - date.getFullYear() < 25) {
-      setError("Minimum age should be 25! ");
+    const age = today.getFullYear() - date.getFullYear();
+    if (age < 25 || age > 50) {
+      setError("Age should be between 25 and 50 ");
       return false;
     }
     return true;

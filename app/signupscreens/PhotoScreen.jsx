@@ -47,10 +47,11 @@ const PhotoScreen = ({ navigation }) => {
         quality: 1,
       });
 
-      if (!result.canceled) {
+      console.log("result: " + (result?.assets == null));
+      if (result?.assets != null) {
+        console.log("calling setPhotos");
         setPhoto(result.assets[0].uri); // `assets` is an array, use the first one
       }
-      console.log("result from picker ", result.assets[0]);
     } catch (error) {
       console.error("Error selecting photo:", error);
     }
