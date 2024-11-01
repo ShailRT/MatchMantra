@@ -8,14 +8,17 @@ import {
   Button,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect ,useContext} from "react";
+import React, { useState, useEffect, useContext } from "react";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import { SignUpContext } from "../_layout";
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from "expo-image-picker";
 import { removeProfileImage, setProfileImage } from "../../utils/backendCalls";
-import { createDataForImage, createDataForImageRemove } from "../../utils/payloadUtils";
+import {
+  createDataForImage,
+  createDataForImageRemove,
+} from "../../utils/payloadUtils";
 import ErrorText from "../../components/ErrorText";
 
 const PhotoScreen = ({ navigation }) => {
@@ -23,16 +26,15 @@ const PhotoScreen = ({ navigation }) => {
   const [photo, setPhoto] = useState(null);
 
   const [imageUrls, setImageUrls] = useState(["", "", ""]);
-  const [error, setError]=useState("");
+  const [error, setError] = useState("");
 
-  // requestPermission 
+  // requestPermission
   const requestPermission = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== 'granted') {
-      alert('Sorry, we need camera roll permissions to make this work!');
+    if (status !== "granted") {
+      alert("Sorry, we need camera roll permissions to make this work!");
     }
   };
-
 
   const selectPhoto = async () => {
     // const hasPermission = await requestPermission();
@@ -48,11 +50,9 @@ const PhotoScreen = ({ navigation }) => {
       if (!result.canceled) {
         setPhoto(result.assets[0].uri); // `assets` is an array, use the first one
       }
-      console.log("result from picker ",result.assets[0]);
-
-      
+      console.log("result from picker ", result.assets[0]);
     } catch (error) {
-      console.error('Error selecting photo:', error);
+      console.error("Error selecting photo:", error);
     }
   };
 
@@ -60,67 +60,62 @@ const PhotoScreen = ({ navigation }) => {
     // Find the first empty slot in the array
     const index = imageUrls.findIndex((url) => url === "");
     if (index !== -1) {
-      try{
+      try {
         const updatedUrls = [...imageUrls];
         updatedUrls[index] = photo;
         setImageUrls(updatedUrls);
         setPhoto("");
-        const formData= createDataForImage(photo, index);
+        const formData = createDataForImage(photo, index);
         await setProfileImage(formData);
-      }catch(error){
-        console.log("error inside handleAddImage",error);
+      } catch (error) {
+        console.log("error inside handleAddImage", error);
       }
- 
     }
   };
 
   useEffect(() => {
-    if(signUpForm?.profile_pictures){
+    if (signUpForm?.profile_pictures) {
       setImageUrls(signUpForm?.profile_pictures);
-       
     }
   }, []);
 
-  useEffect(()=>{
-    if(photo!=null && photo!=""){
+  useEffect(() => {
+    if (photo != null && photo != "") {
       handleAddImage();
-
     }
-  },[photo])
+  }, [photo]);
 
-  console.log("image urs: " , imageUrls);
+  console.log("image urs: ", imageUrls);
 
   const handleNext = () => {
     if (validatePhotos()) {
-      setSignUpForm({...signUpForm, profile_pictures: imageUrls })
-      setError("")
+      setSignUpForm({ ...signUpForm, profile_pictures: imageUrls });
+      setError("");
       navigation.navigate("PreFinal");
-    }else{
-      setError("Must Add 3 Photos!")
+    } else {
+      setError("Must Add 3 Photos!");
     }
   };
 
-  const validatePhotos=()=>{
-   return !imageUrls.includes("");
-  }
+  const validatePhotos = () => {
+    return !imageUrls.includes("");
+  };
 
-
-  const removeImage=async (index)=>{
+  const removeImage = async (index) => {
     console.log("clicked remove image");
-    if (index !== -1&& imageUrls[index]!= "" ) {
-      try{
+    if (index !== -1 && imageUrls[index] != "") {
+      try {
         const updatedUrls = [...imageUrls];
-        updatedUrls[index] = ""; 
+        updatedUrls[index] = "";
         setImageUrls(updatedUrls);
         setPhoto("");
         const data = createDataForImageRemove(index);
         await removeProfileImage(data);
-      }catch(error){
+      } catch (error) {
         console.log("error in remove image ", error);
       }
     }
-    
-  }
+  };
 
   return (
     <SafeAreaView>
@@ -148,11 +143,9 @@ const PhotoScreen = ({ navigation }) => {
         </View>
         <Text
           style={{
-            fontSize: 25,
-            fontWeight: "bold",
-            
             marginTop: 15,
           }}
+          className="font-psemibold text-2xl"
         >
           Pick your videos and photos
         </Text>
@@ -167,7 +160,7 @@ const PhotoScreen = ({ navigation }) => {
           >
             {imageUrls?.slice(0, 3).map((url, index) => (
               <Pressable
-                onPress= {()=>removeImage(index)}
+                onPress={() => removeImage(index)}
                 key={index}
                 style={{
                   borderColor: "#581845",
@@ -241,26 +234,39 @@ const PhotoScreen = ({ navigation }) => {
           {/* <Text style={{ color: "gray", fontSize: 15 }}>Drag to reorder</Text> */}
           <Text
             style={{
-              fontSize: 15,
-              fontWeight: "500",
-              color: "#581845",
+              fontSize: 13,
+              color: "#205B5A",
               marginTop: 3,
             }}
+            className="font-pmedium text-lg"
           >
             Add three photos
           </Text>
-          {error && <ErrorText message={error}/>}
+          {error && <ErrorText message={error} />}
         </View>
 
         <View style={{ marginTop: 25 }}>
           {/* <Text>Add a picture of yourself</Text> */}
-          
-          <Button
-            // onPress={handleAddImage}
+
+          <TouchableOpacity
             onPress={selectPhoto}
-            style={{ marginTop: 5 }}
-            title="Add Image"
-          />
+            style={{
+              backgroundColor: "#205B5A",
+              borderRadius: 8,
+              paddingVertical: 10,
+              paddingHorizontal: 20,
+              alignItems: "center", // Centers the text
+            }}
+          >
+            <Text
+              style={{
+                color: "white",
+              }}
+              className="font-plight text-base"
+            >
+              Add Image
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <TouchableOpacity
@@ -272,7 +278,7 @@ const PhotoScreen = ({ navigation }) => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#205B5A"
             style={{ alignSelf: "center", marginTop: 20 }}
           />
         </TouchableOpacity>

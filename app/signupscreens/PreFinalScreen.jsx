@@ -16,7 +16,7 @@ const PreFinalScreen = () => {
       const response = await updateProfile(data);
       setSignUpForm("");
       setUser({ user: response[0].user, token: response[1] });
-      router.replace("signupscreens/ServiceOptions");
+      router.replace("(auth)/serviceOptions");
     } catch (error) {
       console.log("error in handleSubmit", error);
     }
@@ -67,7 +67,7 @@ const PreFinalScreen = () => {
 
       <Pressable
         onPress={handleSubmit}
-        style={{ backgroundColor: "#900C3F", padding: 15, marginTop: "auto" }}
+        style={{ backgroundColor: "#205B5A", padding: 15, marginTop: "auto" }}
       >
         <Text
           style={{

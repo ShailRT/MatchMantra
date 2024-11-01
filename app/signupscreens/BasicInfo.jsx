@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  Pressable,
-} from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Pressable } from "react-native";
 import React from "react";
 import LottieView from "lottie-react-native";
 
@@ -14,22 +8,18 @@ const BasicInfo = ({ navigation }) => {
       <View style={{ marginTop: 40 }}>
         <Text
           style={{
-            fontSize: 35,
-            fontWeight: "bold",
-            
             marginLeft: 20,
           }}
+          className="font-psemibold text-3xl"
         >
           You're one of a kind.
         </Text>
         <Text
           style={{
-            fontSize: 33,
-            fontWeight: "bold",
-            
             marginLeft: 20,
             marginTop: 10,
           }}
+          className="font-psemibold text-3xl"
         >
           You're profile should be too.
         </Text>
@@ -53,7 +43,8 @@ const BasicInfo = ({ navigation }) => {
 
       <Pressable
         onPress={() => navigation.navigate("Name")}
-        style={{ backgroundColor: "#a3282b", padding: 15, marginTop: "auto" }}
+        style={{ padding: 15, marginTop: "auto" }}
+        className="bg-shaadiGreen"
       >
         <Text
           style={{

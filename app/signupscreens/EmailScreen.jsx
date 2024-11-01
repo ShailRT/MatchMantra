@@ -7,43 +7,41 @@ import {
   TextInput,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import Fontisto from "react-native-vector-icons/Fontisto";
 import { SignUpContext } from "../_layout";
 import ErrorText from "../../components/ErrorText";
 
 const EmailScreen = ({ navigation }) => {
-  const {signUpForm,setSignUpForm} = useContext(SignUpContext)
+  const { signUpForm, setSignUpForm } = useContext(SignUpContext);
   const [email, setEmail] = useState("");
-  const [error,setError]= useState("");
-  
+  const [error, setError] = useState("");
+
   useEffect(() => {
-    if(signUpForm?.email ){
+    if (signUpForm?.email) {
       setEmail(signUpForm?.email);
-       
     }
   }, []);
 
   const handleNext = () => {
-    if(validateEmail()){
-      setSignUpForm({...signUpForm, email: email.toLowerCase()})
+    if (validateEmail()) {
+      setSignUpForm({ ...signUpForm, email: email.toLowerCase() });
       // Navigate to the next screen
       navigation.navigate("Password");
     }
   };
 
-  const validateEmail = ()=>{
+  const validateEmail = () => {
     if (email.trim() == "") {
-      setError( 'Email is required');
+      setError("Email is required");
       return false;
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      setError( 'Email address is invalid');
+      setError("Email address is invalid");
       return false;
     }
     return true;
-  }
-
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -71,16 +69,17 @@ const EmailScreen = ({ navigation }) => {
         </View>
         <Text
           style={{
-            fontSize: 25,
-            fontWeight: "bold",
-            
             marginTop: 15,
           }}
+          className="font-psemibold text-2xl"
         >
           Please provide a valid email
         </Text>
 
-        <Text style={{ marginTop: 30, fontSize: 15, color: "gray" }}>
+        <Text
+          style={{ marginTop: 30, color: "gray" }}
+          className="font-plight text-sm"
+        >
           Email verification helps us keep your account secure.{" "}
           <Text style={{ color: "#581845", fontWeight: "500" }}>
             Learn more
@@ -88,23 +87,26 @@ const EmailScreen = ({ navigation }) => {
         </Text>
         <TextInput
           autoFocus={true}
-          value={email ? email: null}
+          value={email ? email : null}
           onChangeText={(text) => setEmail(text)}
           style={{
             width: 340,
             marginVertical: 10,
-            fontSize: email ? 22 : 22,
+            fontSize: email ? 20 : 20,
             marginTop: 25,
             borderBottomColor: "black",
             borderBottomWidth: 1,
             paddingBottom: 10,
-            
           }}
+          className="font-plight text-lg"
           placeholder="Enter your email"
           placeholderTextColor={"#BEBEBE"}
         />
-        {error && <ErrorText message={error}/>}
-        <Text style={{ color: "gray", fontSize: 15, marginTop: 7 }}>
+        {error && <ErrorText message={error} />}
+        <Text
+          style={{ color: "gray", marginTop: 7 }}
+          className="font-plight text-sm"
+        >
           Note: You will be asked to verify your email
         </Text>
         <TouchableOpacity
@@ -115,7 +117,7 @@ const EmailScreen = ({ navigation }) => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#205B5A"
             style={{ alignSelf: "center", marginTop: 20 }}
           />
         </TouchableOpacity>

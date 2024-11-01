@@ -16,25 +16,25 @@ import ErrorText from "../../components/ErrorText";
 
 const BirthScreen = ({ navigation }) => {
   const { signUpForm, setSignUpForm } = useContext(SignUpContext);
-  
+
   const monthRef = useRef(null);
   const yearRef = useRef(null);
   const [day, setDay] = useState("");
   const [month, setMonth] = useState("");
   const [year, setYear] = useState("");
 
-  const [error,setError]= useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    if(signUpForm?.dob){
-      const [yearValue,monthValue , dayValue] = signUpForm?.dob.split("-");
+    if (signUpForm?.dob) {
+      const [yearValue, monthValue, dayValue] = signUpForm?.dob.split("-");
       setDay(dayValue);
       setMonth(monthValue);
       setYear(yearValue);
     }
   }, []);
- 
-  // todo apply validation for correct date entered .. 
+
+  // todo apply validation for correct date entered ..
   const handleDayChange = (text) => {
     setDay(text);
     if (text.length == 2) {
@@ -52,48 +52,54 @@ const BirthScreen = ({ navigation }) => {
   const handleYearChange = (text) => {
     setYear(text);
   };
- 
 
-  const handleNext = async() => {
+  const handleNext = async () => {
     // Check if all the date values are provided
-    if (day.trim() !== '' && month.trim() !== '' && year.trim() !== '') {
+    if (day.trim() !== "" && month.trim() !== "" && year.trim() !== "") {
       // Construct the date string in the desired format
       const dateOfBirth = `${year}-${month}-${day}`;
 
-      if(validateDate(dateOfBirth)){
-        setSignUpForm({...signUpForm, dob: dateOfBirth});
-        const data= generateRegisterPayload({...signUpForm, dob: dateOfBirth});
-        try{
-              const token= await signup(data);
-              if(token){
-                navigation.navigate('Gender'); // Or navigate to the appropriate screen
-              }else{
-                setError("Something went wrong, please wait for sometime");
-              }
-
-            }catch(error){
-              console.log("error while registering :",error);
-            }
-          setError("");
+      if (validateDate(dateOfBirth)) {
+        setSignUpForm({ ...signUpForm, dob: dateOfBirth });
+        const data = generateRegisterPayload({
+          ...signUpForm,
+          dob: dateOfBirth,
+        });
+        try {
+          const token = await signup(data);
+          if (token) {
+            navigation.navigate("Gender"); // Or navigate to the appropriate screen
+          } else {
+            setError("Something went wrong, please wait for sometime");
+          }
+        } catch (error) {
+          console.log("error while registering :", error);
+        }
+        setError("");
       }
     }
   };
 
-  const validateDate = (dateOfBirth)=>{
-    const date= new Date(dateOfBirth);
-    if ( !(date.getFullYear() == year && date.getMonth() == month-1 && date.getDate() == day)){
+  const validateDate = (dateOfBirth) => {
+    const date = new Date(dateOfBirth);
+    if (
+      !(
+        date.getFullYear() == year &&
+        date.getMonth() == month - 1 &&
+        date.getDate() == day
+      )
+    ) {
       setError("Invalid Date");
       return false;
     }
-    
+
     const today = new Date();
-    if( today.getFullYear() - date.getFullYear() < 25){
+    if (today.getFullYear() - date.getFullYear() < 25) {
       setError("Minimum age should be 25! ");
       return false;
     }
     return true;
-
-  }
+  };
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
@@ -125,11 +131,9 @@ const BirthScreen = ({ navigation }) => {
         </View>
         <Text
           style={{
-            fontSize: 25,
-            fontWeight: "bold",
-            
             marginTop: 15,
           }}
+          className="font-psemibold text-2xl"
         >
           What's your date of birth?
         </Text>
@@ -148,9 +152,8 @@ const BirthScreen = ({ navigation }) => {
               borderBottomWidth: 1,
               borderColor: "black",
               padding: 10,
-              width: 50,
+              width: 45,
               fontSize: day ? 20 : 20,
-              
             }}
             placeholder="DD"
             keyboardType="numeric"
@@ -166,9 +169,8 @@ const BirthScreen = ({ navigation }) => {
               borderBottomWidth: 1,
               borderColor: "black",
               padding: 10,
-              width: 60,
+              width: 55,
               fontSize: month ? 20 : 20,
-              
             }}
             placeholder="MM"
             keyboardType="numeric"
@@ -184,9 +186,8 @@ const BirthScreen = ({ navigation }) => {
               borderBottomWidth: 1,
               borderColor: "black",
               padding: 10,
-              width: 75,
+              width: 65,
               fontSize: 20,
-              
             }}
             placeholder="YYYY"
             keyboardType="numeric"
@@ -195,14 +196,15 @@ const BirthScreen = ({ navigation }) => {
             value={year}
           />
         </View>
-        <View style={{
+        <View
+          style={{
             flexDirection: "row",
             gap: 10,
             marginTop: 30,
             justifyContent: "center",
-          }}>
-
-          {error && <ErrorText message={error}/> }
+          }}
+        >
+          {error && <ErrorText message={error} />}
         </View>
         <TouchableOpacity
           onPress={handleNext}
@@ -212,7 +214,7 @@ const BirthScreen = ({ navigation }) => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#205B5A"
             style={{ alignSelf: "center", marginTop: 20 }}
           />
         </TouchableOpacity>

@@ -16,6 +16,9 @@ module.exports = {
           100: "#1E1E2D",
           200: "#232533",
         },
+        shaadiGreen: {
+          DEFAULT: "#205B5A",
+        },
         gray: {
           100: "#CDCDE0",
         },

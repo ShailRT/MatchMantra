@@ -10,7 +10,6 @@ import React, { useState, useEffect, useContext } from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { SignUpContext } from "../_layout";
 import ErrorText from "../../components/ErrorText";
-import { router } from "expo-router";
 
 const NameScreen = ({ navigation }) => {
   const { signUpForm, setSignUpForm } = useContext(SignUpContext);
@@ -84,15 +83,8 @@ const NameScreen = ({ navigation }) => {
           />
         </View>
 
-        <View style={{ marginTop: 30 }}>
-          <Text
-            style={{
-              fontSize: 25,
-              fontWeight: "bold",
-            }}
-          >
-            What's your name?
-          </Text>
+        <View style={{ marginTop: 15 }}>
+          <Text className="font-psemibold text-2xl">What's your name?</Text>
           <TextInput
             autoFocus={true}
             value={firstName ? firstName : null}
@@ -100,12 +92,13 @@ const NameScreen = ({ navigation }) => {
             style={{
               width: 340,
               marginVertical: 10,
-              fontSize: 22,
+              fontSize: 20,
               marginTop: 25,
               borderBottomColor: "black",
               borderBottomWidth: 1,
               paddingBottom: 10,
             }}
+            className="font-plight text-lg"
             placeholder="First name"
             placeholderTextColor={"#BEBEBE"}
           />
@@ -116,12 +109,13 @@ const NameScreen = ({ navigation }) => {
             style={{
               width: 340,
               marginVertical: 10,
-              fontSize: 22,
+              fontSize: 20,
               marginTop: 25,
               borderBottomColor: "black",
               borderBottomWidth: 1,
               paddingBottom: 10,
             }}
+            className="font-plight text-lg"
             placeholder="Last name"
             placeholderTextColor={"#BEBEBE"}
           />
@@ -135,7 +129,7 @@ const NameScreen = ({ navigation }) => {
           <MaterialCommunityIcons
             name="arrow-right-circle"
             size={45}
-            color="#581845"
+            color="#205B5A"
             style={{ alignSelf: "center", marginTop: 20 }}
           />
         </TouchableOpacity>
