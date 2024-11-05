@@ -50,6 +50,7 @@ const EmailScreen = ({ navigation }) => {
       setError("Email address is invalid");
       return false;
     }
+    setError("");
     return true;
   };
 

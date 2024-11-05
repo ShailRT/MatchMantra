@@ -15,7 +15,8 @@ const NameScreen = ({ navigation }) => {
   const { signUpForm, setSignUpForm } = useContext(SignUpContext);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [error, setError] = useState(["", ""]);
+  const [hometown, setHometown] = useState("");
+  const [error, setError] = useState(["", "", ""]);
 
   useEffect(() => {
     if (signUpForm?.firstName || signUpForm?.lastName) {
@@ -25,33 +26,42 @@ const NameScreen = ({ navigation }) => {
   }, []);
 
   const handleNext = () => {
-    if (firstName.trim() !== "" && lastName.trim() !== "") {
+    if (validateInputs()) {
       setSignUpForm({
         ...signUpForm,
         firstName: firstName,
         lastName: lastName,
+        location: hometown,
       });
-      setError(["", ""]);
-      // Navigate to the next screen
+      setError(["", "", ""]);
       navigation.navigate("Email");
-    } else {
-      handleError();
     }
   };
 
-  const handleError = () => {
+  const validateInputs = () => {
     const newError = [...error];
+    let flag = true;
     if (firstName.trim() == "") {
       newError[0] = "First Name is required";
+      flag = false;
     } else {
       newError[0] = "";
     }
     if (lastName.trim() == "") {
       newError[1] = "Last Name is required";
+      flag = false;
     } else {
       newError[1] = "";
     }
+
+    if (hometown.trim() == "") {
+      newError[2] = "Location is required";
+      flag = false;
+    } else {
+      newError[2] = "";
+    }
     setError(newError);
+    return flag;
   };
 
   return (
@@ -84,7 +94,7 @@ const NameScreen = ({ navigation }) => {
         </View>
 
         <View style={{ marginTop: 15 }}>
-          <Text className="font-psemibold text-2xl">What's your name?</Text>
+          <Text className="font-psemibold text-2xl">Enter your Details</Text>
           <TextInput
             autoFocus={true}
             value={firstName ? firstName : null}
@@ -120,6 +130,24 @@ const NameScreen = ({ navigation }) => {
             placeholderTextColor={"#BEBEBE"}
           />
           {error[1] && <ErrorText message={error[1]} />}
+          <TextInput
+            value={hometown ? hometown : null}
+            onChangeText={(text) => setHometown(text)}
+            autoFocus={true}
+            style={{
+              width: 340,
+              marginVertical: 10,
+              fontSize: hometown ? 20 : 20,
+              marginTop: 25,
+              borderBottomColor: "black",
+              borderBottomWidth: 1,
+              paddingBottom: 10,
+            }}
+            className="font-plight text-lg"
+            placeholder="Location"
+            placeholderTextColor={"#BEBEBE"}
+          />
+          {error[2] && <ErrorText message={error[2]} />}
         </View>
         <TouchableOpacity
           onPress={handleNext}
